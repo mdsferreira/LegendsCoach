@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from '../../constants/Colors';
+import {Colors} from '../../../constants/Colors';
 
 export const styles = StyleSheet.create({
   loginBoxTitle: {
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     color: Colors.gold,
     fontFamily: 'monospace',
     fontWeight: '700',
-    fontSize: 30,
+    fontSize: 40,
   },
   backgroundImage: {
     width: '100%',

@@ -4,20 +4,20 @@ import {Screen} from '../../components/Screen';
 import styled from 'styled-components';
 import {Input} from '../../components/Input';
 import {Button, ButtonText} from '../../components/Button';
-import {Colors} from '../constants/Colors';
-import {Images} from '../constants/Images';
+import {Colors} from '../../constants/Colors';
+import {Images} from '../../constants/Images';
 import {styles} from './style/Auth.css';
 import {useFormik} from 'formik';
 import * as api from '../../api';
 const initialState = {username: '', password: ''};
 
-export const Auth = () => {
+export const AuthScreen = ({navigation}) => {
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: async () => {
       try {
         const {data} = await api.login();
-        console.log(data);
+        navigation.navigate('App');
       } catch (error) {}
     },
   });
@@ -43,6 +43,7 @@ export const Auth = () => {
             placeholder="type your password"
             value={formik.values.password}
             onChangeText={formik.handleChange('password')}
+            secureTextEntry
           />
           <Button>
             {formik.isSubmitting ? (

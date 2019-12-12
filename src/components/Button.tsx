@@ -1,7 +1,6 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
-import {Colors} from '../screens/constants/Colors';
 
 export const Button = styled(TouchableOpacity)`
   border: 3px solid rgba(192, 252, 253, 0.7);

@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {Auth} from './screens/Auth/Auth';
+import {AuthScreen} from './screens/Auth/AuthScreen';
 
 const App: () => React$Node = () => {
   return (
     <>
-      <Auth />
+      <AuthScreen />
     </>
   );
 };

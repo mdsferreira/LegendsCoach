@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {TextInput} from 'react-native';
 import styled from 'styled-components/native';
-import {Colors} from '../screens/constants/Colors';
+import {Colors} from '../constants/Colors';
+// import {Colors} from '../constants/colors';
 
 export const Input = props => {
   const [isFocus, setFocus] = React.useState(false);
