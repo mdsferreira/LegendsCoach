@@ -9,16 +9,21 @@ export const styles = StyleSheet.create({
   },
   title: {
     flexDirection: 'row',
-    marginVertical: 50,
+    marginBottom: 50,
+    // alignSelf: 'flex-start',
   },
   titleText: {
+    color: Colors.gold,
+    fontFamily: 'monospace',
     fontWeight: '700',
     fontSize: 30,
-    color: Colors.gold,
-    alignSelf: 'center',
   },
   backgroundImage: {
     width: '100%',
     height: '100%',
+  },
+  newAcountText: {
+    flexDirection: 'row',
+    marginVertical: 50,
   },
 });

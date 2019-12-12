@@ -27,7 +27,8 @@ export const Auth = () => {
       style={styles.backgroundImage}>
       <Screen color={Colors.black}>
         <View style={styles.title}>
-          <Title style={styles.titleText}>Crie seu time de lendas</Title>
+          {/* <Title style={styles.titleText}>Crie seu time de lendas</Title> */}
+          <Text style={styles.titleText}>Legends Coach</Text>
         </View>
         <LoginBox>
           <Text style={styles.loginBoxTitle}>Iniciar sessão</Text>
@@ -51,6 +52,11 @@ export const Auth = () => {
             )}
           </Button>
         </LoginBox>
+        <View style={styles.newAcountText}>
+          <Text style={[styles.titleText, {fontSize: 10}]}>
+            Não possui conta? Crie seu time de Lendas
+          </Text>
+        </View>
       </Screen>
     </ImageBackground>
   );
@@ -60,9 +66,9 @@ const LoginBox = styled.View`
   border-radius: 3px;
   flex-direction: column;
   box-shadow: 1px 1px #ccc;
-  background-color: ${Colors.white};
+  background-color: #f1f1f1;
   padding: 10px;
-  width: 100%;
+  width: 90%;
 `;
 
 const Title = styled.Text`
@@ -70,6 +76,6 @@ const Title = styled.Text`
   font-size: 30px;
   color: ${Colors.gold};
   align-self: center;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-family: 'Times New Roman';
 `;
