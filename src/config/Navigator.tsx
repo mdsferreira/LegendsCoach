@@ -7,14 +7,64 @@ import {LoadingScreen} from '../components/LoadingScreen';
 import {HomeScreen} from '../screens/home/HomeScreen';
 import {ProfileScreen} from '../screens/profile/ProfileScreen';
 import {TeamScreen} from '../screens/team/TeamScreen';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Colors} from '../constants/Colors';
 import {TeamIcon} from '../components/TeamIcon';
 
-const AppStack = createStackNavigator({
-  Home: HomeScreen,
-});
+const HomeStack = createStackNavigator(
+  {Home: {screen: HomeScreen}},
+  {
+    navigationOptions: {
+      tabBarLabel: 'Home!',
+      tabBarIcon: () => <Icon name="home" size={30} />,
+    },
+    defaultNavigationOptions: {
+      title: 'Welcome',
+      headerStyle: {
+        backgroundColor: Colors.black,
+      },
+      headerTintColor: Colors.blueButton,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  },
+);
+
+const TeamStack = createStackNavigator(
+  {
+    Team: {
+      screen: TeamScreen,
+    },
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Meu Time',
+      tabBarIcon: () => <TeamIcon />,
+    },
+    defaultNavigationOptions: {
+      title: 'Meu Time',
+    },
+  },
+);
+
+const ProfileStack = createStackNavigator(
+  {
+    Profile: {
+      screen: ProfileScreen,
+    },
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Perfil',
+      tabBarIcon: props => <Icon name="user" size={30} />,
+    },
+    defaultNavigationOptions: {
+      title: 'Perfil',
+    },
+  },
+);
+
 const AuthStack = createStackNavigator({
   Auth: {
     screen: AuthScreen,
@@ -26,24 +76,9 @@ const AuthStack = createStackNavigator({
 
 const AppTabNavigator = createBottomTabNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        tabBarIcon: () => <Icon name="home" size={30} />,
-      },
-    },
-    Team: {
-      screen: TeamScreen,
-      navigationOptions: {
-        tabBarIcon: () => <TeamIcon />,
-      },
-    },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        tabBarIcon: ({activeTintColor}) => <Icon name="user" size={30} />,
-      },
-    },
+    Home: HomeStack,
+    Team: TeamStack,
+    Profile: ProfileStack,
   },
   {
     tabBarOptions: {

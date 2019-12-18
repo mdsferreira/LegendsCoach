@@ -1,11 +1,20 @@
 import React, {useEffect} from 'react';
-import {View, ActivityIndicator, StatusBar, StyleSheet} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  StatusBar,
+  StyleSheet,
+  AsyncStorage,
+} from 'react-native';
 
 export const LoadingScreen = ({navigation}) => {
   useEffect(() => {
-    const userToken = ''; //await AsyncStorage.getItem('userToken');
-    navigation.navigate(userToken ? 'App' : 'Auth');
-    //   const userToken = await AsyncStorage.getItem('userToken');
+    try {
+      const userToken = 123; //await AsyncStorage.getItem('userToken');
+      navigation.navigate(userToken ? 'App' : 'Auth');
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
   return (
     <View style={styles.container}>

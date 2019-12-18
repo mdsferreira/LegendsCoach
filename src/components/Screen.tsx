@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StatusBar} from 'react-native';
 import styled from 'styled-components/native';
+import {NavBar} from './NavBar';
 
 export const Screen = ({color, children}) => {
   return (
