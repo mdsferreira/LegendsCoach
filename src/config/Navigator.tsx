@@ -19,7 +19,7 @@ const HomeStack = createStackNavigator(
       tabBarIcon: () => <Icon name="home" size={30} />,
     },
     defaultNavigationOptions: {
-      title: 'Welcome',
+      title: 'Dashbord',
       headerStyle: {
         backgroundColor: Colors.black,
       },

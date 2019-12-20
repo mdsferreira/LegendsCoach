@@ -7,4 +7,5 @@ export const Colors = {
   blueButton: '#b2d9db',
   black: '#000000',
   white: '#ffffff',
+  backgroundScreen: '#f8f6f7',
 };
