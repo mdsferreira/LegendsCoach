@@ -8,4 +8,5 @@ export const Colors = {
   black: '#000000',
   white: '#ffffff',
   backgroundScreen: '#f8f6f7',
+  backgroundLaneIcon: '#2d2d2d',
 };

@@ -44,6 +44,13 @@ const TeamStack = createStackNavigator(
     },
     defaultNavigationOptions: {
       title: 'Meu Time',
+      headerStyle: {
+        backgroundColor: Colors.black,
+      },
+      headerTintColor: Colors.blueButton,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     },
   },
 );

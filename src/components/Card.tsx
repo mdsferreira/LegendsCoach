@@ -4,13 +4,14 @@ import {Colors} from '../constants/Colors';
 import styled from 'styled-components/native';
 // import { Container } from './styles';
 
-export const Card = ({title, subtitle}) => (
+export const Card = ({title, subtitle, children}) => (
   <View style={styles.background}>
     <CardContainer>
       <View style={styles.title}>
         <Text style={styles.subtitleText}>{subtitle}</Text>
         <Text style={styles.titleText}>{title}</Text>
       </View>
+      {children}
     </CardContainer>
   </View>
 );
