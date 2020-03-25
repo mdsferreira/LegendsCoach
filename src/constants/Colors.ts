@@ -9,4 +9,8 @@ export const Colors = {
   white: '#ffffff',
   backgroundScreen: '#f8f6f7',
   backgroundLaneIcon: '#2d2d2d',
+  teamScreen: '#0a1217',
+  darkGray: '#717171',
+  lightGray: '#717171',
+  success: '#63a912',
 };
