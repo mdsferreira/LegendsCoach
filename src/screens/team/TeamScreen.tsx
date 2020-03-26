@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, ImageBackground, Text, Image} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Text,
+  Image,
+  Dimensions,
+} from 'react-native';
 import {Screen} from '../../components/Screen';
 import {Images} from '../../constants/Images';
 import {Card} from '../../components/Card';
@@ -10,7 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {PlayerList} from './PlayerList';
 
 export const TeamScreen = () => {
-  const [lane, changeLane] = React.useState('');
+  const [lane, changeLane] = React.useState('Mid');
   const [topLaner, changeTopLaner] = React.useState();
   const [midLaner, changeMidLaner] = React.useState();
   const [jungle, changeJungle] = React.useState();
@@ -37,7 +44,7 @@ export const TeamScreen = () => {
     }
   };
   return (
-    <Screen color={Colors.teamScreen}>
+    <Screen color={Colors.backgroundScreen}>
       <View style={styles.imageCard}>
         <ImageBackground source={Images.map} style={styles.backgroundImage}>
           <View>
@@ -105,43 +112,47 @@ export const TeamScreen = () => {
               </SelectedSupport>
             ) : null}
           </View>
-          <View style={styles.imageView}>
-            <View style={styles.laneView}>
-              <LaneIconButton
-                lane={'Top'}
-                imageSource={Images.topLaneIcon}
-                onPress={changeLane}
-                selected={lane === 'Top'}
-              />
-              <LaneIconButton
-                lane={'Jungle'}
-                imageSource={Images.jungleIcon}
-                onPress={changeLane}
-                selected={lane === 'Jungle'}
-              />
-              <LaneIconButton
-                lane={'Mid'}
-                imageSource={Images.midLaneIcon}
-                onPress={changeLane}
-                selected={lane === 'Mid'}
-              />
-              <LaneIconButton
-                lane={'Bot'}
-                imageSource={Images.botLaneIcon}
-                onPress={changeLane}
-                selected={lane === 'Bot'}
-              />
-              <LaneIconButton
-                lane={'Support'}
-                imageSource={Images.supportIcon}
-                onPress={changeLane}
-                selected={lane === 'Support'}
-              />
-            </View>
-          </View>
         </ImageBackground>
-        <PlayerList lane={lane} pickNewPlayer={pickNewPlayer} />
       </View>
+      <View style={styles.imageView}>
+        <View style={styles.laneButtonsView}>
+          <LaneIconButton
+            lane={'Top'}
+            imageSource={Images.topLaneIcon}
+            onPress={changeLane}
+            selected={lane === 'Top'}
+          />
+          <Separator />
+          <LaneIconButton
+            lane={'Jungle'}
+            imageSource={Images.jungleIcon}
+            onPress={changeLane}
+            selected={lane === 'Jungle'}
+          />
+          <Separator />
+          <LaneIconButton
+            lane={'Mid'}
+            imageSource={Images.midLaneIcon}
+            onPress={changeLane}
+            selected={lane === 'Mid'}
+          />
+          <Separator />
+          <LaneIconButton
+            lane={'Bot'}
+            imageSource={Images.botLaneIcon}
+            onPress={changeLane}
+            selected={lane === 'Bot'}
+          />
+          <Separator />
+          <LaneIconButton
+            lane={'Support'}
+            imageSource={Images.supportIcon}
+            onPress={changeLane}
+            selected={lane === 'Support'}
+          />
+        </View>
+      </View>
+      <PlayerList lane={lane} pickNewPlayer={pickNewPlayer} />
     </Screen>
   );
 };
@@ -152,10 +163,14 @@ export const styles = StyleSheet.create({
   },
   imageCard: {
     width: '100%',
-    height: 500,
+    height: 400,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+
+    overflow: 'hidden',
   },
   selectedView: {
-    height: 370,
+    height: 350,
   },
   imageView: {
     flexDirection: 'column',
@@ -164,12 +179,18 @@ export const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: '100%',
+    height: 400,
+    borderRadius: 20,
   },
-  laneView: {
+  laneButtonsView: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: Colors.gold,
+    width: Dimensions.get('window').width - 120,
+    borderRadius: 10,
+    top: -30,
+    left: 60,
   },
   playerPhoto: {
     width: 60,
@@ -178,6 +199,14 @@ export const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
 });
+
+export const Separator = styled.View`
+  background-color: ${Colors.backgroundScreen};
+  width: 1;
+  height: 50px;
+  border-radius: 5;
+  opacity: 0.5;
+`;
 
 const SelectedTop = styled.View`
   background-color: ${Colors.teamScreen};

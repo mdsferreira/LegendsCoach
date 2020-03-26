@@ -1,34 +1,30 @@
 import React from 'react';
-import {Image, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {Colors} from '../constants/Colors';
 import styled from 'styled-components/native';
 
 export const LaneIconButton = ({lane, onPress, imageSource, selected}) => {
   const LaneIcon = styled.View`
-    background-color: ${Colors.backgroundLaneIcon};
-    border-radius: 35px;
     padding: 10px;
-    box-shadow: 2px 2px #888888;
-    width: 50px;
+    width: 70px;
     height: 50px;
-    margin: 10px;
-    border: 2px solid;
-    border-color: ${Colors.gold};
-    opacity: ${!selected ? 0.2 : 1};
+    align-items: center;
+    border-color: ${Colors.darkBlue};
+    opacity: ${!selected ? 0.5 : 1};
   `;
 
   return (
-    <TouchableWithoutFeedback onPress={() => onPress(lane)}>
+    <TouchableOpacity onPress={() => onPress(lane)}>
       <LaneIcon>
         <Image source={imageSource} style={styles.backgroundImage} />
       </LaneIcon>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   backgroundImage: {
-    width: '100%',
-    height: '100%',
+    width: 30,
+    height: 30,
   },
 });

@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const TeamIcon = () => (
   <IconContainer>
-    <Icon name="users" size={30} color={Colors.primary} />
+    <Icon name="users" size={30} color={Colors.gold} />
   </IconContainer>
 );
 

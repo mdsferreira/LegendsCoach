@@ -7,10 +7,12 @@ export const Colors = {
   blueButton: '#b2d9db',
   black: '#000000',
   white: '#ffffff',
-  backgroundScreen: '#f8f6f7',
-  backgroundLaneIcon: '#2d2d2d',
-  teamScreen: '#0a1217',
+  backgroundScreen: '#232123', //f8f6f7
+  backgroundLaneIcon: '#232123',
+  darkBackground: '#191719',
+  teamScreen: '#353233', //0a1217
   darkGray: '#717171',
   lightGray: '#717171',
   success: '#63a912',
+  darkBlue: '#0a1217',
 };

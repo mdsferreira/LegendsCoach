@@ -7,10 +7,10 @@ import {
   Image,
   View,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {Colors} from '../../constants/Colors';
 import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const datalist = [
   {
@@ -50,8 +50,9 @@ const datalist = [
 
 export const PlayerList = ({lane, pickNewPlayer}) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Container>
+    <View style={styles.container}>
+      <Text style={styles.listTittle}>Escolha seu {lane}</Text>
+      <FlatListContainer>
         <FlatList
           data={datalist}
           renderItem={({item}) => (
@@ -60,8 +61,8 @@ export const PlayerList = ({lane, pickNewPlayer}) => {
           keyExtractor={item => item.id}
           ItemSeparatorComponent={() => <Separator />}
         />
-      </Container>
-    </SafeAreaView>
+      </FlatListContainer>
+    </View>
   );
 };
 
@@ -71,7 +72,7 @@ const Player = ({player, onPress}) => {
       onPress={() => {
         onPress(player);
       }}>
-      <View style={styles.container}>
+      <View style={styles.playerContainer}>
         <Image source={{uri: player.image}} style={styles.playerPhoto} />
         <View style={styles.playerInfo}>
           <Text style={styles.playerName}>
@@ -89,34 +90,30 @@ const Player = ({player, onPress}) => {
   );
 };
 
-export const Container = styled.View`
-  background-color: ${Colors.backgroundScreen};
-  margin: 20px;
-  width: 90%;
-  height: 300px;
-  border-radius: 20;
+export const FlatListContainer = styled.View`
+  background-color: ${Colors.teamScreen};
+  margin-top: 10px;
+  width: ${Dimensions.get('window').width};
+  height: 320px;
   border-color: ${Colors.lightGray};
-  margin-left: 25;
-  margin-right: 25;
-  margin-top: 20;
-  /* z-index: 99; */
-  position: relative;
-  top: -50px;
 `;
 
 export const Separator = styled.View`
-  background-color: ${Colors.inputGrey};
-  /* margin: 20px; */
+  background-color: ${Colors.backgroundScreen};
   width: 100%;
-  height: 5px;
+  height: 2px;
   border-radius: 5;
 `;
 
 export const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  playerContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    margin: 20,
+    padding: 20,
   },
   playerPhoto: {
     width: 50,
@@ -125,17 +122,15 @@ export const styles = StyleSheet.create({
   },
   playerInfo: {
     height: 50,
-    width: 250,
+    width: 300,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    // borderColor: '#000000',
-    // borderWidth: 2,
     paddingHorizontal: 20,
   },
   playerName: {
     fontSize: 14,
-    color: Colors.lightGray,
+    color: Colors.inputGrey,
     fontFamily: 'verdana',
   },
   playerNickName: {
@@ -144,7 +139,7 @@ export const styles = StyleSheet.create({
   },
   playerTeam: {
     fontSize: 12,
-    color: Colors.lightGray,
+    color: Colors.inputGrey,
     fontFamily: 'verdana',
   },
   playerPrice: {
@@ -152,8 +147,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   playerPriceText: {
-    fontSize: 18,
-    color: Colors.success,
+    fontSize: 20,
+    color: Colors.gold,
     fontWeight: 'bold',
+  },
+  listTittle: {
+    fontSize: 22,
+    color: Colors.inputGrey,
+    marginLeft: 20,
   },
 });

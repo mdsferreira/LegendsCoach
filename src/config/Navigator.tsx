@@ -47,7 +47,7 @@ const TeamStack = createStackNavigator(
       headerStyle: {
         backgroundColor: Colors.black,
       },
-      headerTintColor: Colors.blueButton,
+      headerTintColor: Colors.gold,
       headerTitleStyle: {
         fontWeight: 'bold',
       },
@@ -92,6 +92,9 @@ const AppTabNavigator = createBottomTabNavigator(
       activeTintColor: '#161F3D',
       inactiveTintColor: '#ccc',
       showLabel: false,
+      style: {
+        backgroundColor: Colors.teamScreen,
+      },
     },
   },
 );
