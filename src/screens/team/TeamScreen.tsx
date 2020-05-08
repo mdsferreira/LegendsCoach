@@ -13,7 +13,7 @@ import {Card} from '../../components/Card';
 import {Colors} from '../../constants/Colors';
 import styled from 'styled-components/native';
 import {LaneIconButton} from '../../components/LaneIconButton';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-ionicons';
 import {PlayerList} from './PlayerList';
 
 export const TeamScreen = () => {
@@ -122,28 +122,28 @@ export const TeamScreen = () => {
             onPress={changeLane}
             selected={lane === 'Top'}
           />
-          <Separator />
+          {/* <Separator /> */}
           <LaneIconButton
             lane={'Jungle'}
             imageSource={Images.jungleIcon}
             onPress={changeLane}
             selected={lane === 'Jungle'}
           />
-          <Separator />
+          {/* <Separator /> */}
           <LaneIconButton
             lane={'Mid'}
             imageSource={Images.midLaneIcon}
             onPress={changeLane}
             selected={lane === 'Mid'}
           />
-          <Separator />
+          {/* <Separator /> */}
           <LaneIconButton
             lane={'Bot'}
             imageSource={Images.botLaneIcon}
             onPress={changeLane}
             selected={lane === 'Bot'}
           />
-          <Separator />
+          {/* <Separator /> */}
           <LaneIconButton
             lane={'Support'}
             imageSource={Images.supportIcon}
@@ -186,10 +186,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.gold,
     width: Dimensions.get('window').width - 120,
     borderRadius: 10,
-    top: -30,
+    top: -40,
     left: 60,
   },
   playerPhoto: {
@@ -217,8 +216,8 @@ const SelectedTop = styled.View`
   border: 2px solid;
   border-color: ${Colors.gold};
   position: absolute;
-  left: 80px;
-  top: 90px;
+  left: 120px;
+  top: 60px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -233,8 +232,8 @@ const SelectedJungle = styled.View`
   border: 2px solid;
   border-color: ${Colors.gold};
   position: absolute;
-  left: 110px;
-  top: 170px;
+  left: 130px;
+  top: 130px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -249,8 +248,8 @@ const SelectedMid = styled.View`
   border: 2px solid;
   border-color: ${Colors.gold};
   position: absolute;
-  left: 180px;
-  top: 180px;
+  left: 210px;
+  top: 130px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -266,7 +265,7 @@ const SelectedBot = styled.View`
   border-color: ${Colors.gold};
   position: absolute;
   left: 270px;
-  top: 250px;
+  top: 200px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -281,8 +280,8 @@ const SelectedSupport = styled.View`
   border: 2px solid;
   border-color: ${Colors.gold};
   position: absolute;
-  left: 340px;
-  top: 270px;
+  left: 330px;
+  top: 210px;
   align-items: center;
   justify-content: center;
   overflow: hidden;

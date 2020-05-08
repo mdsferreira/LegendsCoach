@@ -1,22 +1,24 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../../constants/Colors';
+import {moderateScale} from 'react-native-size-matters';
 
 export const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
+    padding: moderateScale(20),
+  },
   loginBoxTitle: {
     alignSelf: 'center',
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: moderateScale(20),
   },
   title: {
     flexDirection: 'row',
-    marginBottom: 50,
-    // alignSelf: 'flex-start',
-  },
-  titleText: {
-    color: Colors.gold,
-    fontFamily: 'monospace',
-    fontWeight: '700',
-    fontSize: 40,
+    marginBottom: moderateScale(50),
+    alignSelf: 'flex-start',
   },
   backgroundImage: {
     width: '100%',
@@ -24,6 +26,7 @@ export const styles = StyleSheet.create({
   },
   newAcountText: {
     flexDirection: 'row',
-    marginVertical: 50,
+    marginVertical: moderateScale(50),
+    alignSelf: 'center',
   },
 });

@@ -1,12 +1,15 @@
 import React from 'react';
-import {Text} from 'react-native';
-import {AuthScreen} from './screens/Auth/AuthScreen';
+import Navigator from './config/Navigator';
+import {Provider} from 'react-redux';
+import configureStore from './store/store';
 
-const App: () => React$Node = () => {
+const store = configureStore({});
+
+const App = () => {
   return (
-    <>
-      <AuthScreen />
-    </>
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
   );
 };
 

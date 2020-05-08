@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {View, StyleSheet} from 'react-native';
 import {Colors} from '../constants/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-ionicons';
 
 export const TeamIcon = () => (
   <IconContainer>

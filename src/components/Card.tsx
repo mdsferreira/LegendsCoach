@@ -18,7 +18,7 @@ export const Card = ({title, subtitle, children}) => (
 
 export const CardContainer = styled.View`
   /* flex: 1; */
-  background-color: ${Colors.white};
+  background-color: ${Colors.teamScreen};
   margin: 20px;
   height: 200px;
   border-radius: 20;
@@ -50,9 +50,11 @@ const styles = StyleSheet.create({
   titleText: {
     textAlign: 'center',
     fontSize: 20,
+    color: Colors.lightGray,
   },
   subtitleText: {
     textAlign: 'center',
     fontSize: 10,
+    color: Colors.lightGray,
   },
 });

@@ -1,7 +1,7 @@
 import {isRequired} from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType';
 
 export const Images = {
-  backgroundLogin: require('../assets/img/Login/background-login.png'),
+  backgroundLogin: require('../assets/img/Login/background_login.png'),
   map: require('../assets/img/MyTeam/map.jpg'),
   topLaneIcon: require('../assets/img/MyTeam/top_lane.png'),
   jungleIcon: require('../assets/img/MyTeam/jungle_lane.png'),
