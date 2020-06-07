@@ -29,4 +29,8 @@ export const styles = StyleSheet.create({
     marginVertical: moderateScale(50),
     alignSelf: 'center',
   },
+  errorText: {
+    color: 'red',
+    marginLeft: moderateScale(10),
+  },
 });

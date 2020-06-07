@@ -10,14 +10,18 @@ export const Input = props => {
     <InputStyled
       isFocus={isFocus}
       {...props}
-      onFocus={() => setFocus(true)}
+      onFocus={() => {
+        setFocus(true);
+        props.setTouched();
+      }}
       onBlur={() => setFocus(false)}
     />
   );
 };
 
 const InputStyled = styled(TextInput)`
-  border: ${props => (props.isFocus ? '2px solid black' : 'none')};
+  border: ${props =>
+    props.isFocus ? `2px solid ${Colors.secundary}` : 'none'};
   background-color: ${props =>
     props.isFocus ? Colors.white : Colors.inputGrey};
   padding: 12px;

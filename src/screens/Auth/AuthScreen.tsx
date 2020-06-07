@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import {useDispatch} from 'react-redux';
 import {Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import styled from 'styled-components';
@@ -9,19 +9,42 @@ import {Images} from '../../constants/Images';
 import {styles} from './style/Auth.css';
 import {Formik} from 'formik';
 import {Logo} from '../../components/Logo';
-import {loginEmail} from '../../store/actions/Login';
-import {useDispatch} from 'react-redux';
+import {Creators as userActions} from '../../store/ducks/user';
+import {useDispatch, useSelector} from 'react-redux';
+import * as Yup from 'yup';
 
-const initialState = {username: '', password: ''};
+const initialValues = {email: '', password: ''};
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  password: Yup.string()
+    .min(6, 'Too Short!')
+    .max(20, 'Too Long!')
+    .required('Required'),
+});
 
 export const AuthScreen = ({navigation}) => {
   const [errorMsg, setErrorMesage] = useState('');
   const dispatch = useDispatch();
+  const userState = useSelector(state => state.user);
+  const {loading, user, error} = userState;
+  useEffect(() => {
+    if (error) {
+      setErrorMesage(error);
+    } else {
+      if (user) {
+        setErrorMesage('');
+        navigation.navigate('Home');
+      }
+    }
+  }, [userState]);
+  const login = userData => dispatch(userActions.authUser(userData));
 
-  const onSubmit = userData => {
+  const onSubmit = async userData => {
     try {
-      loginEmail(dispatch, userData);
-      navigation.navigate('Home');
+      await login(userData);
     } catch (error) {
       setErrorMesage('Usuário ou senha inválidos');
     }
@@ -36,30 +59,47 @@ export const AuthScreen = ({navigation}) => {
         </View>
         <LoginBox>
           <Formik
-            initialValues={initialState}
+            initialValues={initialValues}
+            validationSchema={LoginSchema}
             onSubmit={values => {
               onSubmit(values);
             }}>
             {props => {
-              const {values, isSubmitting, handleChange, handleSubmit} = props;
+              const {
+                values,
+                isSubmitting,
+                handleChange,
+                handleSubmit,
+                errors,
+                touched,
+                setFieldTouched,
+                submitCount,
+              } = props;
               return (
                 <>
                   <Text style={styles.loginBoxTitle}>Iniciar sessão</Text>
                   <Input
                     name="email"
-                    placeholder="type your email or username"
+                    placeholder={'Digite o seu email de acesso'}
                     value={values.email}
-                    onChangeText={handleChange('userName')}
+                    onChangeText={handleChange('email')}
+                    hasError={touched.email && errors.email}
+                    setTouched={() => setFieldTouched('email')}
                   />
                   <Input
                     name="password"
-                    placeholder="type your password"
+                    placeholder="Digite a sua senha"
                     value={values.password}
                     onChangeText={handleChange('password')}
                     secureTextEntry
+                    hasError={touched.password && errors.password}
+                    setTouched={() => setFieldTouched('password')}
                   />
+                  {errorMsg ? (
+                    <Text style={styles.errorText}>{errorMsg}</Text>
+                  ) : null}
                   <Button>
-                    {isSubmitting ? (
+                    {loading ? (
                       <ActivityIndicator />
                     ) : (
                       <ButtonText onPress={handleSubmit}>Entrar</ButtonText>
@@ -86,7 +126,6 @@ const LoginBox = styled.View`
   box-shadow: 1px 1px #ccc;
   background-color: #f1f1f1;
   padding: 10px;
-  /* width: 90%; */
 `;
 
 const Title = styled.Text`

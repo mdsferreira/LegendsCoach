@@ -1,6 +1,6 @@
 export const Colors = {
   primary: '#c9aa71',
-  secundary: '#f1f1f1',
+  secundary: '#b2d9db',
   gold: '#c9aa71',
   title: '#c3a568',
   inputGrey: '#ebebeb',
