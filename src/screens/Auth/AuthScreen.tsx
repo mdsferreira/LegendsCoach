@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 // import {useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 import {Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import styled from 'styled-components';
 import {Input} from '../../components/Input';
@@ -30,18 +31,7 @@ export const AuthScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const userState = useSelector(state => state.user);
   const {loading, user, error} = userState;
-  useEffect(() => {
-    if (error) {
-      setErrorMesage(error);
-    } else {
-      if (user) {
-        setErrorMesage('');
-        navigation.navigate('Home');
-      }
-    }
-  }, [userState]);
   const login = userData => dispatch(userActions.authUser(userData));
-
   const onSubmit = async userData => {
     try {
       await login(userData);
@@ -49,6 +39,26 @@ export const AuthScreen = ({navigation}) => {
       setErrorMesage('Usuário ou senha inválidos');
     }
   };
+  useEffect(() => {
+    if (error) {
+      setErrorMesage(error);
+    } else {
+      if (user) {
+        setErrorMesage('');
+      }
+    }
+  }, [userState]);
+
+  useEffect(() => {
+    (async () => {
+      const email = await AsyncStorage.getItem('email');
+      const password = await AsyncStorage.getItem('password');
+      if (email && password) {
+        onSubmit({email, password});
+      }
+    })();
+  }, []);
+
   return (
     <ImageBackground
       source={Images.backgroundLogin}

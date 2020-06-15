@@ -54,7 +54,7 @@ export const TeamScreen = () => {
             {lane === 'Top' || topLaner ? (
               <SelectedTop>
                 {!topLaner ? (
-                  <Icon name="question" size={35} color={Colors.gold} />
+                  <Icon name="help" size={35} color={Colors.gold} />
                 ) : (
                   <Image
                     source={{uri: topLaner.image}}
@@ -66,7 +66,7 @@ export const TeamScreen = () => {
             {lane === 'Jungle' || jungle ? (
               <SelectedJungle>
                 {!jungle ? (
-                  <Icon name="question" size={35} color={Colors.gold} />
+                  <Icon name="help" size={35} color={Colors.gold} />
                 ) : (
                   <Image
                     source={{uri: jungle.image}}
@@ -78,7 +78,7 @@ export const TeamScreen = () => {
             {lane === 'Mid' || midLaner ? (
               <SelectedMid>
                 {!midLaner ? (
-                  <Icon name="question" size={35} color={Colors.gold} />
+                  <Icon name="help" size={35} color={Colors.gold} />
                 ) : (
                   <Image
                     source={{uri: midLaner.image}}
@@ -90,7 +90,7 @@ export const TeamScreen = () => {
             {lane === 'Bot' || botLaner ? (
               <SelectedBot>
                 {!botLaner ? (
-                  <Icon name="question" size={35} color={Colors.gold} />
+                  <Icon name="help" size={35} color={Colors.gold} />
                 ) : (
                   <Image
                     source={{uri: botLaner.image}}
@@ -102,7 +102,7 @@ export const TeamScreen = () => {
             {lane === 'Support' || support ? (
               <SelectedSupport>
                 {!support ? (
-                  <Icon name="question" size={35} color={Colors.gold} />
+                  <Icon name="help" size={35} color={Colors.gold} />
                 ) : (
                   <Image
                     source={{uri: support.image}}

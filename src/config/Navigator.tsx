@@ -7,29 +7,36 @@ import HomeScreen from '../screens/home/HomeScreen';
 import {ProfileScreen} from '../screens/profile/ProfileScreen';
 import {TeamScreen} from '../screens/team/TeamScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useSelector} from 'react-redux';
+import {SearchScreen} from '../screens/search/SearchScreen';
 
 const LogoutStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function Navigator() {
+  const user = useSelector(state => state.user.user);
+  console.log(user);
   return (
-    <NavigationContainer>
-      <LogoutStack.Navigator>
-        <LogoutStack.Screen
-          name="Login"
-          component={AuthScreen}
-          options={{headerShown: false}}
-        />
-        <LogoutStack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{headerShown: false}}
-        />
-      </LogoutStack.Navigator>
-      {/* <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Team" component={TeamScreen} />
-      </Tab.Navigator> */}
-    </NavigationContainer>
+    <>
+      {!user ? (
+        <NavigationContainer>
+          <LogoutStack.Navigator>
+            <LogoutStack.Screen
+              name="Login"
+              component={AuthScreen}
+              options={{headerShown: false}}
+            />
+          </LogoutStack.Navigator>
+        </NavigationContainer>
+      ) : (
+        <NavigationContainer>
+          <Tab.Navigator>
+            <Tab.Screen name="Search" component={SearchScreen} />
+            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Team" component={TeamScreen} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      )}
+    </>
   );
 }

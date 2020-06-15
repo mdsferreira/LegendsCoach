@@ -55,11 +55,15 @@ function authUser(params) {
       .then(response => {
         const user = response.data;
         AsyncStorage.setItem('token', user.token);
+        // AsyncStorage.setItem('email', params.email);
+        // AsyncStorage.setItem('password', params.password);
         dispatch(Creators.authUserSuccess(user));
       })
       .catch(error => {
         const errorMsg =
-          error.response && error.response.data ? error.response.data : '';
+          error.response && error.response.data
+            ? error.response.data
+            : 'Network error';
         dispatch(Creators.authUserFailure(errorMsg));
         throw error;
       });

@@ -12,8 +12,7 @@ export const getURL = (baseUrl, params) => {
   return `${baseUrl}?${url}`;
 };
 
-console.log(BASE_URL);
-
 export const urls = {
   LOGIN: `${BASE_URL}/user/login/`,
+  LEAGUES: `${BASE_URL}/league/list`,
 };

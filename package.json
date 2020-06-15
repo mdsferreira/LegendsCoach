@@ -22,7 +22,7 @@
     "react-native-dotenv": "^0.2.0",
     "react-native-fonts": "^0.0.0",
     "react-native-gesture-handler": "^1.6.1",
-    "react-native-ionicons": "^5.0.0-rc",
+    "react-native-ionicons": "^4.6.5",
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.7.0",
