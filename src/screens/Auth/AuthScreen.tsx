@@ -141,7 +141,7 @@ const LoginBox = styled.View`
 const Title = styled.Text`
   font-weight: 700;
   font-size: 30px;
-  color: ${Colors.gold};
+  color: ${Colors.primary.contrastText};
   align-self: center;
   /* text-transform: uppercase; */
   font-family: 'Times New Roman';

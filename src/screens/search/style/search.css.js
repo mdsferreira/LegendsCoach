@@ -13,8 +13,8 @@ export const styles = StyleSheet.create({
   inputContainer: {
     alignSelf: 'center',
     fontSize: moderateScale(20),
-    backgroundColor: Colors.lightGray,
-    color: Colors.secundary,
+    backgroundColor: Colors.secondary.main,
+    color: Colors.secondary.contrastText,
     width: '90%',
     marginLeft: 10,
     marginRight: 10,
@@ -30,14 +30,16 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     paddingHorizontal: moderateScale(20),
     paddingVertical: moderateScale(20),
+    backgroundColor: Colors.primary.dark,
+    width: '100%',
   },
   titleText: {
-    color: Colors.primary,
+    color: Colors.primary.contrastText,
     fontSize: moderateScale(45),
     fontFamily: 'Roboto',
   },
   searchIcon: {
-    color: Colors.primary,
+    color: Colors.secondary.contrastText,
   },
   seriesContainer: {
     flexDirection: 'row',
@@ -54,7 +56,7 @@ export const styles = StyleSheet.create({
   },
   seriesName: {
     fontSize: 14,
-    color: Colors.inputGrey,
+    color: Colors.text.body,
     fontFamily: 'verdana',
   },
   seriesDescription: {
@@ -63,7 +65,7 @@ export const styles = StyleSheet.create({
   },
   seriesDescriptionText: {
     fontSize: 20,
-    color: Colors.gold,
+    color: Colors.primary.contrastText,
     fontWeight: 'bold',
   },
 });

@@ -9,13 +9,13 @@ import {TeamScreen} from '../screens/team/TeamScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useSelector} from 'react-redux';
 import {SearchScreen} from '../screens/search/SearchScreen';
-
+import Icon from 'react-native-ionicons';
+import {Colors} from '../constants/Colors';
 const LogoutStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function Navigator() {
   const user = useSelector(state => state.user.user);
-  console.log(user);
   return (
     <>
       {!user ? (
@@ -30,7 +30,32 @@ export default function Navigator() {
         </NavigationContainer>
       ) : (
         <NavigationContainer>
-          <Tab.Navigator>
+          <Tab.Navigator
+            screenOptions={({route}) => ({
+              tabBarIcon: ({focused, color, size}) => {
+                let iconName = route.name.toLocaleLowerCase();
+
+                if (route.name === 'Team') {
+                  iconName = 'shirt';
+                }
+
+                // You can return any component that you like here!
+                return <Icon name={iconName} size={size} color={color} />;
+              },
+            })}
+            tabBarOptions={{
+              activeTintColor: Colors.secondary.light,
+              inactiveTintColor: Colors.secondary.main,
+              labelStyle: {
+                fontSize: 12,
+              },
+              style: {
+                backgroundColor: Colors.primary.main,
+                borderTopColor: '#707070',
+                borderTopWidth: 1,
+                padding: 5,
+              },
+            }}>
             <Tab.Screen name="Search" component={SearchScreen} />
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Team" component={TeamScreen} />

@@ -44,7 +44,7 @@ export const TeamScreen = () => {
     }
   };
   return (
-    <Screen color={Colors.backgroundScreen}>
+    <Screen color={Colors.background.main}>
       <View style={styles.imageCard}>
         <ImageBackground source={Images.map} style={styles.backgroundImage}>
           <View>
@@ -54,7 +54,11 @@ export const TeamScreen = () => {
             {lane === 'Top' || topLaner ? (
               <SelectedTop>
                 {!topLaner ? (
-                  <Icon name="help" size={35} color={Colors.gold} />
+                  <Icon
+                    name="help"
+                    size={35}
+                    color={Colors.primary.contrastText}
+                  />
                 ) : (
                   <Image
                     source={{uri: topLaner.image}}
@@ -66,7 +70,11 @@ export const TeamScreen = () => {
             {lane === 'Jungle' || jungle ? (
               <SelectedJungle>
                 {!jungle ? (
-                  <Icon name="help" size={35} color={Colors.gold} />
+                  <Icon
+                    name="help"
+                    size={35}
+                    color={Colors.primary.contrastText}
+                  />
                 ) : (
                   <Image
                     source={{uri: jungle.image}}
@@ -78,7 +86,11 @@ export const TeamScreen = () => {
             {lane === 'Mid' || midLaner ? (
               <SelectedMid>
                 {!midLaner ? (
-                  <Icon name="help" size={35} color={Colors.gold} />
+                  <Icon
+                    name="help"
+                    size={35}
+                    color={Colors.primary.contrastText}
+                  />
                 ) : (
                   <Image
                     source={{uri: midLaner.image}}
@@ -90,7 +102,11 @@ export const TeamScreen = () => {
             {lane === 'Bot' || botLaner ? (
               <SelectedBot>
                 {!botLaner ? (
-                  <Icon name="help" size={35} color={Colors.gold} />
+                  <Icon
+                    name="help"
+                    size={35}
+                    color={Colors.primary.contrastText}
+                  />
                 ) : (
                   <Image
                     source={{uri: botLaner.image}}
@@ -102,7 +118,11 @@ export const TeamScreen = () => {
             {lane === 'Support' || support ? (
               <SelectedSupport>
                 {!support ? (
-                  <Icon name="help" size={35} color={Colors.gold} />
+                  <Icon
+                    name="help"
+                    size={35}
+                    color={Colors.primary.contrastText}
+                  />
                 ) : (
                   <Image
                     source={{uri: support.image}}
@@ -159,7 +179,7 @@ export const TeamScreen = () => {
 
 export const styles = StyleSheet.create({
   textTittle: {
-    color: Colors.white,
+    color: Colors.text.title,
   },
   imageCard: {
     width: '100%',
@@ -200,7 +220,7 @@ export const styles = StyleSheet.create({
 });
 
 export const Separator = styled.View`
-  background-color: ${Colors.backgroundScreen};
+  background-color: ${Colors.primary.main};
   width: 1;
   height: 50px;
   border-radius: 5;
@@ -208,13 +228,13 @@ export const Separator = styled.View`
 `;
 
 const SelectedTop = styled.View`
-  background-color: ${Colors.teamScreen};
+  background-color: ${Colors.primary.main};
   border-radius: 35px;
   box-shadow: 2px 2px #888888;
   width: 60px;
   height: 60px;
   border: 2px solid;
-  border-color: ${Colors.gold};
+  border-color: ${Colors.primary.contrastText};
   position: absolute;
   left: 120px;
   top: 60px;
@@ -224,13 +244,13 @@ const SelectedTop = styled.View`
 `;
 
 const SelectedJungle = styled.View`
-  background-color: ${Colors.teamScreen};
+  background-color: ${Colors.primary.main};
   border-radius: 35px;
   box-shadow: 2px 2px #888888;
   width: 60px;
   height: 60px;
   border: 2px solid;
-  border-color: ${Colors.gold};
+  border-color: ${Colors.primary.contrastText};
   position: absolute;
   left: 130px;
   top: 130px;
@@ -240,13 +260,13 @@ const SelectedJungle = styled.View`
 `;
 
 const SelectedMid = styled.View`
-  background-color: ${Colors.teamScreen};
+  background-color: ${Colors.primary.main};
   border-radius: 35px;
   box-shadow: 2px 2px #888888;
   width: 60px;
   height: 60px;
   border: 2px solid;
-  border-color: ${Colors.gold};
+  border-color: ${Colors.primary.contrastText};
   position: absolute;
   left: 210px;
   top: 130px;
@@ -256,13 +276,13 @@ const SelectedMid = styled.View`
 `;
 
 const SelectedBot = styled.View`
-  background-color: ${Colors.teamScreen};
+  background-color: ${Colors.primary.main};
   border-radius: 35px;
   box-shadow: 2px 2px #888888;
   width: 60px;
   height: 60px;
   border: 2px solid;
-  border-color: ${Colors.gold};
+  border-color: ${Colors.primary.contrastText};
   position: absolute;
   left: 270px;
   top: 200px;
@@ -272,13 +292,13 @@ const SelectedBot = styled.View`
 `;
 
 const SelectedSupport = styled.View`
-  background-color: ${Colors.teamScreen};
+  background-color: ${Colors.primary.main};
   border-radius: 35px;
   box-shadow: 2px 2px #888888;
   width: 60px;
   height: 60px;
   border: 2px solid;
-  border-color: ${Colors.gold};
+  border-color: ${Colors.primary.contrastText};
   position: absolute;
   left: 330px;
   top: 210px;

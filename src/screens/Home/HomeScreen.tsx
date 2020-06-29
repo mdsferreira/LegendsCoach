@@ -25,7 +25,6 @@ class HomeScreen extends Component {
   }
 }
 function mapStateToProps(state) {
-  console.log(state, 'state');
   return {user: state.user};
 }
 function mapDispatchToProps(dispatch) {

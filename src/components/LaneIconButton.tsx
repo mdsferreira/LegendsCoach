@@ -9,8 +9,8 @@ export const LaneIconButton = ({lane, onPress, imageSource, selected}) => {
     width: 60px;
     height: 60px;
     align-items: center;
-    border: 2px solid   ${!selected ? Colors.darkBlue : '#d8b578'};
-    background-color: ${!selected ? '#a28859' : Colors.gold};
+    border: 2px solid   ${!selected ? Colors.secondary.dark : '#d8b578'};
+    background-color: ${!selected ? '#a28859' : Colors.primary.contrastText};
     border-radius: 40px;
     margin: 10px;
     /* opacity: ${!selected ? 0.5 : 1}; */

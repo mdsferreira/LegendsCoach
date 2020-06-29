@@ -91,15 +91,15 @@ const Player = ({player, onPress}) => {
 };
 
 export const FlatListContainer = styled.View`
-  background-color: ${Colors.teamScreen};
+  background-color: ${Colors.primary.light};
   margin-top: 10px;
   width: ${Dimensions.get('window').width};
   height: 320px;
-  border-color: ${Colors.lightGray};
+  border-color: ${Colors.primary.light};
 `;
 
 export const Separator = styled.View`
-  background-color: ${Colors.backgroundScreen};
+  background-color: ${Colors.primary.main};
   width: 100%;
   height: 2px;
   border-radius: 5;
@@ -130,7 +130,7 @@ export const styles = StyleSheet.create({
   },
   playerName: {
     fontSize: 14,
-    color: Colors.inputGrey,
+    color: Colors.text.body,
     fontFamily: 'verdana',
   },
   playerNickName: {
@@ -139,7 +139,7 @@ export const styles = StyleSheet.create({
   },
   playerTeam: {
     fontSize: 12,
-    color: Colors.inputGrey,
+    color: Colors.text.body,
     fontFamily: 'verdana',
   },
   playerPrice: {
@@ -148,12 +148,12 @@ export const styles = StyleSheet.create({
   },
   playerPriceText: {
     fontSize: 20,
-    color: Colors.gold,
+    color: Colors.primary.main,
     fontWeight: 'bold',
   },
   listTittle: {
     fontSize: 22,
-    color: Colors.inputGrey,
+    color: Colors.text.title,
     marginLeft: 20,
   },
 });

@@ -19,5 +19,5 @@ const Content = styled.View`
   justify-content: flex-start;
   flex-direction: column;
   background-color: ${props =>
-    props.color ? props.color : Colors.backgroundScreen};
+    props.color ? props.color : Colors.primary.main};
 `;

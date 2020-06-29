@@ -1,4 +1,5 @@
-import {BASE_URL} from 'react-native-dotenv';
+// import {BASE_URL} from 'react-native-dotenv';
+const BASE_URL = 'http://192.168.15.5:3000/api';
 
 export const getURL = (baseUrl, params) => {
   const searchParamsKeys = Object.keys(params);

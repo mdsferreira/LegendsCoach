@@ -16,7 +16,7 @@ import Icon from 'react-native-ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {Creators as leagueActions} from '../../store/ducks/league';
 
-export const SearchScreen = ({}) => {
+export function SearchScreen({}) {
   const [searchText, onChangeText] = useState('Useless Placeholder');
   const dispatch = useDispatch();
   const leagues = useSelector(state => state.league.leagues);
@@ -36,7 +36,7 @@ export const SearchScreen = ({}) => {
             style={styles.searchIcon}
             name="search"
             size={35}
-            color={Colors.primary}
+            color={Colors.primary.main}
           />
         </TouchableHighlight>
       </View>
@@ -53,7 +53,7 @@ export const SearchScreen = ({}) => {
       </View>
     </Screen>
   );
-};
+}
 
 const Series = ({series}) => {
   return (
@@ -71,29 +71,29 @@ const Series = ({series}) => {
 };
 
 export const Separator = styled.View`
-  background-color: ${Colors.backgroundScreen};
+  background-color: ${Colors.primary.light};
   width: 100%;
   height: 2px;
   border-radius: 5;
 `;
 
 export const FlatListContainer = styled.View`
-  background-color: ${Colors.teamScreen};
+  background-color: ${Colors.primary.main};
   margin-top: 10px;
   width: ${Dimensions.get('window').width};
   height: 320px;
-  border-color: ${Colors.lightGray};
+  border-color: ${Colors.primary.dark};
 `;
 
 const Input = styled(TextInput)`
   border-radius: 3px;
   flex-direction: column;
   box-shadow: 1px 1px #ccc;
-  /* background-color: #f1f1f1; */
+  background-color: ${Colors.secondary.main};
   padding: 10px;
   width: 70%;
   margin: 20px;
   border-radius: 5px;
-  color: ${Colors.white};
+  color: ${Colors.secondary.contrastText};
   height: 100%;
 `;

@@ -52,7 +52,6 @@ function getLeague() {
   return async dispatch => {
     dispatch(Creators.getLeagueRequest());
     const token = await AsyncStorage.getItem('token');
-    console.log('Bearer ' + token);
     axios
       .get(urls.LEAGUES, {
         headers: {
@@ -65,7 +64,6 @@ function getLeague() {
         dispatch(Creators.getLeagueSuccess(leagues));
       })
       .catch(error => {
-        console.log(error);
         const errorMsg =
           error.response && error.response.data ? error.response.data : '';
         dispatch(Creators.getLeagueFailure(errorMsg));

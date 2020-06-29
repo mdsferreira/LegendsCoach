@@ -10,7 +10,7 @@ export const Logo = () => {
       <Consultor
         width={moderateScale(100)}
         height={moderateScale(50)}
-        fill={Colors.blueButton}
+        fill={Colors.primary.light}
       />
       <View style={styles.logoTextView}>
         <Text style={styles.initialLetter}>L</Text>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   initialLetter: {
     fontSize: moderateScale(55),
     fontWeight: 'bold',
-    color: Colors.primary,
+    color: Colors.primary.contrastText,
     ...Platform.select({
       ios: {fontFamily: 'Arial'},
       android: {fontFamily: 'Roboto'},
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   logoText: {
     fontSize: moderateScale(30),
-    color: Colors.primary,
+    color: Colors.primary.contrastText,
     ...Platform.select({
       ios: {fontFamily: 'Arial'},
       android: {fontFamily: 'Roboto'},
