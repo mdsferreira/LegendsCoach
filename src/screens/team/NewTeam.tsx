@@ -13,6 +13,7 @@ import styled from 'styled-components/native';
 import {Colors} from '../../constants/Colors';
 import {moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-ionicons';
+import {TeamBeadgeList} from './TeamBadgeList';
 
 export function CreateTeam({navigation}) {
   const defaultName = 'Digite o nome do seu time';
@@ -66,7 +67,7 @@ export function CreateTeam({navigation}) {
         </View>
         <View style={styles.container}>
           <View style={styles.teamLogoContainer}>
-            <Text>{step}</Text>
+            <TeamBeadgeList />
           </View>
         </View>
       </ScrollView>
@@ -104,13 +105,14 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     flexDirection: 'column',
     // justifyContent: 'center',
+    paddingTop: 150,
+
     alignItems: 'center',
     // backgroundColor: '#0f0',
   },
   inputContainer: {
     justifyContent: 'center',
     width: '100%',
-    marginTop: 150,
   },
   teamNameText: {
     textAlign: 'center',
@@ -136,7 +138,17 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(15),
   },
   teamLogoContainer: {
-    height: moderateScale(400),
+    height: moderateScale(250),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  teamLogoView: {
+    width: Dimensions.get('window').width - 100,
+    height: moderateScale(250),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.background.component,
+    borderRadius: 10,
   },
 });
 

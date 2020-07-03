@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StatusBar} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import styled from 'styled-components/native';
 import {NavBar} from './NavBar';
 import {Colors} from '../constants/Colors';
@@ -13,7 +13,7 @@ export const Screen = ({color, children}) => {
   );
 };
 
-const Content = styled.View`
+const Content = styled(SafeAreaView)`
   flex: 1;
   align-items: flex-start;
   justify-content: flex-start;
