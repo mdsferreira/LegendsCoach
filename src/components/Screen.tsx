@@ -20,4 +20,6 @@ const Content = styled.View`
   flex-direction: column;
   background-color: ${props =>
     props.color ? props.color : Colors.primary.main};
+  width: 100%;
+  height: 100%;
 `;

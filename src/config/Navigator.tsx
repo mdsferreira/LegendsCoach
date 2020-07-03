@@ -11,8 +11,20 @@ import {useSelector} from 'react-redux';
 import {SearchScreen} from '../screens/search/SearchScreen';
 import Icon from 'react-native-ionicons';
 import {Colors} from '../constants/Colors';
+import {CreateTeam} from '../screens/team/NewTeam';
+
 const LogoutStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const TeamStack = createStackNavigator();
+
+function TeamStackScreen() {
+  return (
+    <TeamStack.Navigator>
+      <TeamStack.Screen name="TeamMain" component={TeamScreen} />
+      <TeamStack.Screen name="NewTeam" component={CreateTeam} />
+    </TeamStack.Navigator>
+  );
+}
 
 export default function Navigator() {
   const user = useSelector(state => state.user.user);
@@ -34,7 +46,6 @@ export default function Navigator() {
             screenOptions={({route}) => ({
               tabBarIcon: ({focused, color, size}) => {
                 let iconName = route.name.toLocaleLowerCase();
-
                 if (route.name === 'Team') {
                   iconName = 'shirt';
                 }
@@ -56,9 +67,10 @@ export default function Navigator() {
                 padding: 5,
               },
             }}>
+            <Tab.Screen name="Team" component={TeamStackScreen} />
+
             <Tab.Screen name="Search" component={SearchScreen} />
             <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Team" component={TeamScreen} />
           </Tab.Navigator>
         </NavigationContainer>
       )}

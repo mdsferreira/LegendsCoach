@@ -22,7 +22,7 @@ const InputStyled = styled(TextInput)`
   border: ${props =>
     props.isFocus ? `2px solid ${Colors.primary.main}` : 'none'};
   background-color: ${props =>
-    props.isFocus ? Colors.primary.main : Colors.primary.light};
+    props.isFocus ? Colors.background.component : Colors.background.body};
   padding: 12px;
   margin: 10px;
 `;

@@ -11,6 +11,9 @@ export const Colors = {
     dark: '#977b45',
     contrastText: '#232123',
   },
+  especial: {
+    main: '#84ffff',
+  },
   background: {
     main: '#232123',
     component: '#ffffff',
@@ -18,7 +21,9 @@ export const Colors = {
     body: '#cccccc',
   },
   text: {
+    main: '#ffffff',
     title: '#fddca0',
     body: '#cccccc',
+    error: '#ff1744',
   },
 };

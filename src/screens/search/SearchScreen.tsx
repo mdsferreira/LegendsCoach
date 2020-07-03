@@ -22,7 +22,7 @@ export function SearchScreen({}) {
   const leagues = useSelector(state => state.league.leagues);
   const series = leagues && leagues.length > 0 ? leagues[0].series : [];
   const getLeagues = () => dispatch(leagueActions.getLeague());
-  useEffect(() => getLeagues(), []);
+  // useEffect(() => getLeagues(), []);
 
   return (
     <Screen>

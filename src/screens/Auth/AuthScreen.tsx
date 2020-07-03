@@ -134,7 +134,7 @@ const LoginBox = styled.View`
   border-radius: 3px;
   flex-direction: column;
   box-shadow: 1px 1px #ccc;
-  background-color: #f1f1f1;
+  background-color: ${Colors.primary.main};
   padding: 10px;
 `;
 

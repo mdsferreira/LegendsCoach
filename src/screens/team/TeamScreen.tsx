@@ -1,178 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
-  ImageBackground,
+  Modal,
   Text,
-  Image,
+  TouchableHighlight,
   Dimensions,
 } from 'react-native';
 import {Screen} from '../../components/Screen';
-import {Images} from '../../constants/Images';
-import {Card} from '../../components/Card';
 import {Colors} from '../../constants/Colors';
 import styled from 'styled-components/native';
-import {LaneIconButton} from '../../components/LaneIconButton';
+import {useDispatch, useSelector} from 'react-redux';
+import {moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-ionicons';
-import {PlayerList} from './PlayerList';
 
-export const TeamScreen = () => {
-  const [lane, changeLane] = React.useState('Mid');
-  const [topLaner, changeTopLaner] = React.useState();
-  const [midLaner, changeMidLaner] = React.useState();
-  const [jungle, changeJungle] = React.useState();
-  const [botLaner, changeBotLaner] = React.useState();
-  const [support, changeSupport] = React.useState();
+export const TeamScreen = ({navigation}) => {
+  const [openModal, setModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const {team} = useSelector(state => state.team);
 
-  const pickNewPlayer = player => {
-    switch (lane) {
-      case 'Top':
-        changeTopLaner(player);
-        break;
-      case 'Jungle':
-        changeJungle(player);
-        break;
-      case 'Mid':
-        changeMidLaner(player);
-        break;
-      case 'Bot':
-        changeBotLaner(player);
-        break;
-      case 'Support':
-        changeSupport(player);
-        break;
-    }
-  };
   return (
     <Screen color={Colors.background.main}>
-      <View style={styles.imageCard}>
-        <ImageBackground source={Images.map} style={styles.backgroundImage}>
+      {!team.id && (
+        <View style={styles.createTeamContainer}>
           <View>
-            <Text style={styles.textTittle}>Escolha Seus Jogadores </Text>
+            <Icon name="md-star-half" size={100} color={Colors.especial.main} />
           </View>
-          <View style={styles.selectedView}>
-            {lane === 'Top' || topLaner ? (
-              <SelectedTop>
-                {!topLaner ? (
-                  <Icon
-                    name="help"
-                    size={35}
-                    color={Colors.primary.contrastText}
-                  />
-                ) : (
-                  <Image
-                    source={{uri: topLaner.image}}
-                    style={styles.playerPhoto}
-                  />
-                )}
-              </SelectedTop>
-            ) : null}
-            {lane === 'Jungle' || jungle ? (
-              <SelectedJungle>
-                {!jungle ? (
-                  <Icon
-                    name="help"
-                    size={35}
-                    color={Colors.primary.contrastText}
-                  />
-                ) : (
-                  <Image
-                    source={{uri: jungle.image}}
-                    style={styles.playerPhoto}
-                  />
-                )}
-              </SelectedJungle>
-            ) : null}
-            {lane === 'Mid' || midLaner ? (
-              <SelectedMid>
-                {!midLaner ? (
-                  <Icon
-                    name="help"
-                    size={35}
-                    color={Colors.primary.contrastText}
-                  />
-                ) : (
-                  <Image
-                    source={{uri: midLaner.image}}
-                    style={styles.playerPhoto}
-                  />
-                )}
-              </SelectedMid>
-            ) : null}
-            {lane === 'Bot' || botLaner ? (
-              <SelectedBot>
-                {!botLaner ? (
-                  <Icon
-                    name="help"
-                    size={35}
-                    color={Colors.primary.contrastText}
-                  />
-                ) : (
-                  <Image
-                    source={{uri: botLaner.image}}
-                    style={styles.playerPhoto}
-                  />
-                )}
-              </SelectedBot>
-            ) : null}
-            {lane === 'Support' || support ? (
-              <SelectedSupport>
-                {!support ? (
-                  <Icon
-                    name="help"
-                    size={35}
-                    color={Colors.primary.contrastText}
-                  />
-                ) : (
-                  <Image
-                    source={{uri: support.image}}
-                    style={styles.playerPhoto}
-                  />
-                )}
-              </SelectedSupport>
-            ) : null}
-          </View>
-        </ImageBackground>
-      </View>
-      <View style={styles.imageView}>
-        <View style={styles.laneButtonsView}>
-          <LaneIconButton
-            lane={'Top'}
-            imageSource={Images.topLaneIcon}
-            onPress={changeLane}
-            selected={lane === 'Top'}
-          />
-          {/* <Separator /> */}
-          <LaneIconButton
-            lane={'Jungle'}
-            imageSource={Images.jungleIcon}
-            onPress={changeLane}
-            selected={lane === 'Jungle'}
-          />
-          {/* <Separator /> */}
-          <LaneIconButton
-            lane={'Mid'}
-            imageSource={Images.midLaneIcon}
-            onPress={changeLane}
-            selected={lane === 'Mid'}
-          />
-          {/* <Separator /> */}
-          <LaneIconButton
-            lane={'Bot'}
-            imageSource={Images.botLaneIcon}
-            onPress={changeLane}
-            selected={lane === 'Bot'}
-          />
-          {/* <Separator /> */}
-          <LaneIconButton
-            lane={'Support'}
-            imageSource={Images.supportIcon}
-            onPress={changeLane}
-            selected={lane === 'Support'}
-          />
+          <Text style={styles.createTeamText}>
+            Crie o seu time para começar
+          </Text>
+          <ButtonStyled onPress={() => navigation.navigate('NewTeam')}>
+            <Text style={styles.buttonText}>CRIAR</Text>
+          </ButtonStyled>
         </View>
-      </View>
-      <PlayerList lane={lane} pickNewPlayer={pickNewPlayer} />
+      )}
     </Screen>
   );
 };
@@ -181,128 +42,31 @@ export const styles = StyleSheet.create({
   textTittle: {
     color: Colors.text.title,
   },
-  imageCard: {
+  createTeamContainer: {
     width: '100%',
-    height: 400,
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
-
-    overflow: 'hidden',
-  },
-  selectedView: {
-    height: 350,
-  },
-  imageView: {
+    height: '100%',
     flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  backgroundImage: {
-    width: '100%',
-    height: 400,
-    borderRadius: 20,
-  },
-  laneButtonsView: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: Dimensions.get('window').width - 120,
-    borderRadius: 10,
-    top: -40,
-    left: 60,
   },
-  playerPhoto: {
-    width: 60,
-    height: 60,
-    alignItems: 'center',
-    resizeMode: 'cover',
+  createTeamText: {
+    fontSize: moderateScale(35),
+    textAlign: 'center',
+  },
+  buttonText: {
+    color: Colors.primary.main,
+    // fontWeight: 'bold',
+    fontSize: moderateScale(15),
   },
 });
 
-export const Separator = styled.View`
-  background-color: ${Colors.primary.main};
-  width: 1;
+export const ButtonStyled = styled(TouchableHighlight)`
+  background-color: ${Colors.secondary.main};
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 20px;
+  margin-top: 50px;
   height: 50px;
   border-radius: 5;
-  opacity: 0.5;
-`;
-
-const SelectedTop = styled.View`
-  background-color: ${Colors.primary.main};
-  border-radius: 35px;
-  box-shadow: 2px 2px #888888;
-  width: 60px;
-  height: 60px;
-  border: 2px solid;
-  border-color: ${Colors.primary.contrastText};
-  position: absolute;
-  left: 120px;
-  top: 60px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-`;
-
-const SelectedJungle = styled.View`
-  background-color: ${Colors.primary.main};
-  border-radius: 35px;
-  box-shadow: 2px 2px #888888;
-  width: 60px;
-  height: 60px;
-  border: 2px solid;
-  border-color: ${Colors.primary.contrastText};
-  position: absolute;
-  left: 130px;
-  top: 130px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-`;
-
-const SelectedMid = styled.View`
-  background-color: ${Colors.primary.main};
-  border-radius: 35px;
-  box-shadow: 2px 2px #888888;
-  width: 60px;
-  height: 60px;
-  border: 2px solid;
-  border-color: ${Colors.primary.contrastText};
-  position: absolute;
-  left: 210px;
-  top: 130px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-`;
-
-const SelectedBot = styled.View`
-  background-color: ${Colors.primary.main};
-  border-radius: 35px;
-  box-shadow: 2px 2px #888888;
-  width: 60px;
-  height: 60px;
-  border: 2px solid;
-  border-color: ${Colors.primary.contrastText};
-  position: absolute;
-  left: 270px;
-  top: 200px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-`;
-
-const SelectedSupport = styled.View`
-  background-color: ${Colors.primary.main};
-  border-radius: 35px;
-  box-shadow: 2px 2px #888888;
-  width: 60px;
-  height: 60px;
-  border: 2px solid;
-  border-color: ${Colors.primary.contrastText};
-  position: absolute;
-  left: 330px;
-  top: 210px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
 `;

@@ -8,4 +8,5 @@ export const Images = {
   midLaneIcon: require('../assets/img/MyTeam/mid_lane.png'),
   botLaneIcon: require('../assets/img/MyTeam/bot_lane.png'),
   supportIcon: require('../assets/img/MyTeam/support.png'),
+  logo: require('../assets/img/logo.png'),
 };
