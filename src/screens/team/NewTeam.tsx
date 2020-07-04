@@ -7,18 +7,30 @@ import {
   StyleSheet,
   TouchableHighlight,
   Dimensions,
+  Keyboard,
 } from 'react-native';
 import {Screen} from '../../components/Screen';
 import styled from 'styled-components/native';
 import {Colors} from '../../constants/Colors';
 import {moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-ionicons';
-import {TeamBeadgeList} from './TeamBadgeList';
+import {TeamBadgeList, SelectBadge} from './TeamBadgeList';
+import {TeamLogoList, SelectLogo} from './TeamLogoList';
+import {ColorsPick} from './ColorsPick';
 
 export function CreateTeam({navigation}) {
   const defaultName = 'Digite o nome do seu time';
+  const defaultColor = Colors.background.component;
   const [teamName, onChangeText] = useState(defaultName);
+  const [selectedBadge, setBadge] = useState({_id: 0, color: defaultColor});
+  const [selectedLogo, setLogo] = useState({_id: 0, color: defaultColor});
   //   const [errorName, setErrorName] = useState('');
+  const setBadgeColor = color => {
+    setBadge({...selectedBadge, color});
+  };
+  const setLogoColor = color => {
+    setLogo({...selectedLogo, color});
+  };
   const scrollRef = useRef(null);
   const [step, setStep] = useState(0);
   navigation.setOptions({
@@ -39,13 +51,24 @@ export function CreateTeam({navigation}) {
   const nextStep = () => {
     if (step === 0) {
       if (validateTeamName()) {
-        //#TODO check if is unic
+        //#TODO check if the name is unic
+        setStep(step + 1);
+        Keyboard.dismiss();
+      }
+    }
+    if (step === 1) {
+      if (selectedBadge._id) {
+        setStep(step + 1);
+      }
+    }
+    if (step === 2) {
+      if (selectedLogo._id) {
         setStep(step + 1);
       }
     }
     scrollRef.current.scrollTo({
       x: 0,
-      y: Dimensions.get('window').height * step,
+      y: Dimensions.get('window').height * (step + 1),
       animated: true,
     });
   };
@@ -66,8 +89,45 @@ export function CreateTeam({navigation}) {
           </View>
         </View>
         <View style={styles.container}>
+          <View style={styles.teamBadgeContainer}>
+            <TeamBadgeList selectedBadge={selectedBadge} setBadge={setBadge} />
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.teamBadgeContainer}>
+            <View style={styles.teamBadgeView}>
+              <SelectBadge
+                color={selectedBadge.color || defaultColor}
+                badgeId={selectedBadge._id}
+              />
+            </View>
+            <View>
+              <ColorsPick
+                selectedColor={selectedBadge.color}
+                setColor={setBadgeColor}
+              />
+            </View>
+          </View>
+        </View>
+        <View style={styles.container}>
           <View style={styles.teamLogoContainer}>
-            <TeamBeadgeList />
+            <TeamLogoList selectedLogo={selectedLogo} setLogo={setLogo} />
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.teamLogoContainer}>
+            <View style={styles.teamLogoView}>
+              <SelectLogo
+                color={selectedLogo.color || defaultColor}
+                badgeId={selectedLogo._id}
+              />
+            </View>
+            <View>
+              <ColorsPick
+                selectedColor={selectedLogo.color}
+                setColor={setLogoColor}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -137,6 +197,19 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     fontSize: moderateScale(15),
   },
+  teamBadgeContainer: {
+    height: moderateScale(250),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  teamBadgeView: {
+    width: Dimensions.get('window').width - 100,
+    height: moderateScale(250),
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: Colors.background.component,
+    borderRadius: 10,
+  },
   teamLogoContainer: {
     height: moderateScale(250),
     justifyContent: 'center',
@@ -147,7 +220,7 @@ const styles = StyleSheet.create({
     height: moderateScale(250),
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.background.component,
+    // backgroundColor: Colors.background.body,
     borderRadius: 10,
   },
 });
