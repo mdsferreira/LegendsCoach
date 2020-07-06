@@ -70,7 +70,7 @@ export const TeamLogoList = ({selectedLogo, setLogo}) => {
       renderItem={({item}) => (
         <TouchableWithoutFeedback
           onPress={() => {
-            setLogo({...selectedLogo, _id: `${item._id}`});
+            setLogo({color: selectedLogo.color, _id: `${item._id}`});
           }}>
           <View
             style={

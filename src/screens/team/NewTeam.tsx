@@ -17,6 +17,9 @@ import Icon from 'react-native-ionicons';
 import {TeamBadgeList, SelectBadge} from './TeamBadgeList';
 import {TeamLogoList, SelectLogo} from './TeamLogoList';
 import {ColorsPick} from './ColorsPick';
+import Lottie from 'lottie-react-native';
+import animation from '../../assets/img/animations/success.json';
+const status = {ERROR: 'ERROR', WARNING: 'WARNNING', SUCCESS: 'SUCCESS'};
 
 export function CreateTeam({navigation}) {
   const defaultName = 'Digite o nome do seu time';
@@ -24,6 +27,11 @@ export function CreateTeam({navigation}) {
   const [teamName, onChangeText] = useState(defaultName);
   const [selectedBadge, setBadge] = useState({_id: 0, color: defaultColor});
   const [selectedLogo, setLogo] = useState({_id: 0, color: defaultColor});
+  //status warnning , error or success
+  const [buttonStatus, setButtonStatus] = useState({
+    text: defaultName,
+    status: status.WARNING,
+  });
   //   const [errorName, setErrorName] = useState('');
   const setBadgeColor = color => {
     setBadge({...selectedBadge, color});
@@ -34,7 +42,7 @@ export function CreateTeam({navigation}) {
   const scrollRef = useRef(null);
   const [step, setStep] = useState(0);
   navigation.setOptions({
-    title: teamName || defaultName,
+    title: teamName,
     headerStyle: {
       backgroundColor: Colors.primary.main,
     },
@@ -45,7 +53,27 @@ export function CreateTeam({navigation}) {
   });
 
   const validateTeamName = () => {
+    if (teamName.length > 3 && teamName != defaultName) {
+      setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+    }
     return teamName.length > 3 && teamName != defaultName;
+  };
+
+  const validateTeam = () => {
+    switch (step) {
+      case 0:
+        return teamName.length > 3 && teamName != defaultName;
+      case 1:
+        return !!selectedBadge._id;
+      case 2:
+        return !!selectedBadge.color;
+      case 3:
+        return !!selectedLogo._id;
+      case 4:
+        return !!selectedLogo.color;
+      default:
+        return false;
+    }
   };
 
   const nextStep = () => {
@@ -54,23 +82,42 @@ export function CreateTeam({navigation}) {
         //#TODO check if the name is unic
         setStep(step + 1);
         Keyboard.dismiss();
+        setButtonStatus({text: 'Selecione uma Brazão', status: status.WARNING});
+      } else {
+        setButtonStatus({text: 'Tamanho mínimo 3', status: status.ERROR});
       }
     }
     if (step === 1) {
       if (selectedBadge._id) {
+        setButtonStatus({text: 'Selecione uma cor', status: status.WARNING});
         setStep(step + 1);
       }
     }
     if (step === 2) {
-      if (selectedLogo._id) {
+      if (selectedBadge._id && selectedBadge.color) {
+        setButtonStatus({text: 'Selecione um Logo', status: status.WARNING});
         setStep(step + 1);
       }
     }
-    scrollRef.current.scrollTo({
-      x: 0,
-      y: Dimensions.get('window').height * (step + 1),
-      animated: true,
-    });
+    if (step === 3) {
+      if (selectedLogo._id) {
+        setButtonStatus({text: 'Selecione uma cor', status: status.WARNING});
+        setStep(step + 1);
+      }
+    }
+    if (step === 4) {
+      if (selectedLogo._id && selectedLogo.color) {
+        setButtonStatus({text: '', status: status.SUCCESS});
+        setStep(step + 1);
+      }
+    }
+    if (validateTeam()) {
+      scrollRef.current.scrollTo({
+        x: 0,
+        y: Dimensions.get('window').height * (step + 1),
+        animated: true,
+      });
+    }
   };
 
   return (
@@ -82,7 +129,10 @@ export function CreateTeam({navigation}) {
         <View style={styles.container}>
           <View style={styles.inputContainer}>
             <Input
-              onChangeText={text => onChangeText(text)}
+              onChangeText={text => {
+                onChangeText(text);
+                validateTeamName();
+              }}
               value={teamName}
               onFocus={() => onChangeText('')}
             />
@@ -90,7 +140,13 @@ export function CreateTeam({navigation}) {
         </View>
         <View style={styles.container}>
           <View style={styles.teamBadgeContainer}>
-            <TeamBadgeList selectedBadge={selectedBadge} setBadge={setBadge} />
+            <TeamBadgeList
+              setBadge={badge => {
+                setBadge(badge);
+                setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+              }}
+              selectedBadge={selectedBadge}
+            />
           </View>
         </View>
         <View style={styles.container}>
@@ -104,14 +160,23 @@ export function CreateTeam({navigation}) {
             <View>
               <ColorsPick
                 selectedColor={selectedBadge.color}
-                setColor={setBadgeColor}
+                setColor={color => {
+                  setBadgeColor(color);
+                  setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+                }}
               />
             </View>
           </View>
         </View>
         <View style={styles.container}>
           <View style={styles.teamLogoContainer}>
-            <TeamLogoList selectedLogo={selectedLogo} setLogo={setLogo} />
+            <TeamLogoList
+              selectedLogo={selectedLogo}
+              setLogo={logo => {
+                setLogo(logo);
+                setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+              }}
+            />
           </View>
         </View>
         <View style={styles.container}>
@@ -125,33 +190,71 @@ export function CreateTeam({navigation}) {
             <View>
               <ColorsPick
                 selectedColor={selectedLogo.color}
-                setColor={setLogoColor}
+                setColor={color => {
+                  setLogoColor(color);
+                  setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+                }}
+              />
+            </View>
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.teamLogoContainer}>
+            <View style={styles.teamLogoView}>
+              <SelectBadge
+                color={selectedBadge.color || defaultColor}
+                badgeId={selectedBadge._id}
+              />
+            </View>
+            <View style={styles.teamFinalLogoView}>
+              <SelectLogo
+                color={selectedLogo.color || defaultColor}
+                badgeId={selectedLogo._id}
               />
             </View>
           </View>
         </View>
       </ScrollView>
-      {!!(teamName && teamName !== defaultName) && (
-        <ButtonStyled onPress={() => nextStep()} valid={validateTeamName()}>
-          <View style={styles.buttonContainer}>
-            {validateTeamName() ? (
-              <Icon name="arrow-down" size={40} color={Colors.especial.main} />
+      <ButtonStyled onPress={() => nextStep()} status={buttonStatus.status}>
+        <View style={styles.buttonContainer}>
+          {buttonStatus.status === status.SUCCESS ? (
+            step === 5 ? (
+              <View
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 150,
+                  height: 150,
+                }}>
+                <Lottie
+                  resizeMode="contain"
+                  source={animation}
+                  autoPlay
+                  loop //={false}
+                />
+              </View>
             ) : (
-              <Icon name="close" size={40} color={Colors.text.error} />
-            )}
-            <View>
-              <Text
-                style={
-                  validateTeamName()
-                    ? styles.buttonText
-                    : styles.buttonTextError
-                }>
-                {validateTeamName() ? 'PRONTO' : 'Tamanho mínimo 3 '}
-              </Text>
-            </View>
+              <Icon name="arrow-down" size={40} color={Colors.especial.main} />
+            )
+          ) : buttonStatus.status === status.ERROR ? (
+            <Icon name="close" size={40} color={Colors.text.error} />
+          ) : (
+            <Icon name="warning" size={40} color={Colors.secondary.main} />
+          )}
+          <View>
+            <Text
+              style={
+                buttonStatus.status === status.SUCCESS
+                  ? styles.buttonText
+                  : buttonStatus.status === status.ERROR
+                  ? styles.buttonTextError
+                  : styles.buttonTextWarning
+              }>
+              {buttonStatus.text}
+            </Text>
           </View>
-        </ButtonStyled>
-      )}
+        </View>
+      </ButtonStyled>
     </Screen>
   );
 }
@@ -197,6 +300,12 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     fontSize: moderateScale(15),
   },
+  buttonTextWarning: {
+    marginLeft: 10,
+    color: Colors.secondary.main,
+    // fontWeight: 'bold',
+    fontSize: moderateScale(15),
+  },
   teamBadgeContainer: {
     height: moderateScale(250),
     justifyContent: 'center',
@@ -223,6 +332,14 @@ const styles = StyleSheet.create({
     // backgroundColor: Colors.background.body,
     borderRadius: 10,
   },
+  teamFinalLogoView: {
+    width: Dimensions.get('window').width - 100,
+    height: moderateScale(100),
+    // backgroundColor: Colors.background.body,
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 const Input = styled(TextInput)`
@@ -242,7 +359,12 @@ const Input = styled(TextInput)`
 export const ButtonStyled = styled(TouchableHighlight)`
   background-color: ${Colors.primary.main};
   border: 1px solid
-    ${props => (!props.valid ? Colors.text.error : Colors.especial.main)};
+    ${props =>
+      props.status === status.SUCCESS
+        ? Colors.especial.main
+        : props.status === status.ERROR
+        ? Colors.text.error
+        : Colors.secondary.main};
   justify-content: center;
   align-items: center;
   width: 90%;
