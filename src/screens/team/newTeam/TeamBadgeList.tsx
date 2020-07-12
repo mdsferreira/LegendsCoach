@@ -1,14 +1,14 @@
 import React from 'react';
-import Shield1 from '../../assets/img/team/shields/shield1.svg';
-import Shield2 from '../../assets/img/team/shields/shield2.svg';
-import Shield3 from '../../assets/img/team/shields/shield3.svg';
-import Shield4 from '../../assets/img/team/shields/shield4.svg';
-import Shield5 from '../../assets/img/team/shields/shield5.svg';
-import Shield6 from '../../assets/img/team/shields/shield6.svg';
-import Shield7 from '../../assets/img/team/shields/shield7.svg';
-import Shield8 from '../../assets/img/team/shields/shield8.svg';
-import Shield9 from '../../assets/img/team/shields/shield9.svg';
-import Shield10 from '../../assets/img/team/shields/shield10.svg';
+import Shield1 from '../../../assets/img/team/shields/shield1.svg';
+import Shield2 from '../../../assets/img/team/shields/shield2.svg';
+import Shield3 from '../../../assets/img/team/shields/shield3.svg';
+import Shield4 from '../../../assets/img/team/shields/shield4.svg';
+import Shield5 from '../../../assets/img/team/shields/shield5.svg';
+import Shield6 from '../../../assets/img/team/shields/shield6.svg';
+import Shield7 from '../../../assets/img/team/shields/shield7.svg';
+import Shield8 from '../../../assets/img/team/shields/shield8.svg';
+import Shield9 from '../../../assets/img/team/shields/shield9.svg';
+import Shield10 from '../../../assets/img/team/shields/shield10.svg';
 import {
   FlatList,
   View,
@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import styled from 'styled-components/native';
-import {Colors} from '../../constants/Colors';
+import {Colors} from '../../../constants/Colors';
 
 export const TeamBadgeList = ({selectedBadge, setBadge}) => {
   const teamBadgeList = [
@@ -83,35 +83,36 @@ export const TeamBadgeList = ({selectedBadge, setBadge}) => {
           </View>
         </TouchableWithoutFeedback>
       )}
-      keyExtractor={item => item._id}
+      keyExtractor={item => `${item._id}`}
       ItemSeparatorComponent={() => <Separator />}
       horizontal
     />
   );
 };
 
-export const SelectBadge = ({color, badgeId}) => {
+export const SelectBadge = ({color, badgeId, width}) => {
+  const setWidth = width || moderateScale(300);
   switch (parseInt(badgeId)) {
     case 1:
-      return <Shield1 fill={color} />;
+      return <Shield1 fill={color} width={setWidth} height={setWidth} />;
     case 2:
-      return <Shield2 fill={color} />;
+      return <Shield2 fill={color} width={setWidth} height={setWidth} />;
     case 3:
-      return <Shield3 fill={color} />;
+      return <Shield3 fill={color} width={setWidth} height={setWidth} />;
     case 4:
-      return <Shield4 fill={color} />;
+      return <Shield4 fill={color} width={setWidth} height={setWidth} />;
     case 5:
-      return <Shield5 fill={color} />;
+      return <Shield5 fill={color} width={setWidth} height={setWidth} />;
     case 6:
-      return <Shield6 fill={color} />;
+      return <Shield6 fill={color} width={setWidth} height={setWidth} />;
     case 7:
-      return <Shield7 fill={color} />;
+      return <Shield7 fill={color} width={setWidth} height={setWidth} />;
     case 8:
-      return <Shield8 fill={color} />;
+      return <Shield8 fill={color} width={setWidth} height={setWidth} />;
     case 9:
-      return <Shield9 fill={color} />;
+      return <Shield9 fill={color} width={setWidth} height={setWidth} />;
     case 10:
-      return <Shield10 fill={color} />;
+      return <Shield10 fill={color} width={setWidth} height={setWidth} />;
     default:
       return null;
   }

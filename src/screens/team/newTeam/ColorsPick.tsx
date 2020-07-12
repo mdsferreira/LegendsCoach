@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, TouchableHighlight} from 'react-native';
 import styled from 'styled-components/native';
-import {Colors} from '../../constants/Colors';
+import {Colors} from '../../../constants/Colors';
 
 export const ColorsPick = ({selectedColor, setColor}) => {
   const colors1 = [
@@ -27,15 +27,15 @@ export const ColorsPick = ({selectedColor, setColor}) => {
   return (
     <View style={styles.container}>
       <View style={styles.colorRow}>
-        {colors1.map(color => (
-          <TouchableHighlight onPress={() => setColor(color)}>
+        {colors1.map((color, index) => (
+          <TouchableHighlight onPress={() => setColor(color)} key={index}>
             <ColorBox color={color} />
           </TouchableHighlight>
         ))}
       </View>
       <View style={styles.colorRow}>
-        {colors2.map(color => (
-          <TouchableHighlight onPress={() => setColor(color)}>
+        {colors2.map((color, index) => (
+          <TouchableHighlight onPress={() => setColor(color)} key={index}>
             <ColorBox color={color} />
           </TouchableHighlight>
         ))}

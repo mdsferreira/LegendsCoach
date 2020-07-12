@@ -1,12 +1,12 @@
 import React from 'react';
-import Wolf from '../../assets/img/team/logos/wolf.svg';
-import Fish from '../../assets/img/team/logos/fish.svg';
-import Cat from '../../assets/img/team/logos/cat.svg';
-import Seahorse from '../../assets/img/team/logos/seahorse.svg';
-import Pig from '../../assets/img/team/logos/pig.svg';
-import Bear from '../../assets/img/team/logos/bear.svg';
-import Deer from '../../assets/img/team/logos/deer.svg';
-import Dino from '../../assets/img/team/logos/dino.svg';
+import Wolf from '../../../assets/img/team/logos/wolf.svg';
+import Fish from '../../../assets/img/team/logos/fish.svg';
+import Cat from '../../../assets/img/team/logos/cat.svg';
+import Seahorse from '../../../assets/img/team/logos/seahorse.svg';
+import Pig from '../../../assets/img/team/logos/pig.svg';
+import Bear from '../../../assets/img/team/logos/bear.svg';
+import Deer from '../../../assets/img/team/logos/deer.svg';
+import Dino from '../../../assets/img/team/logos/dino.svg';
 
 import {
   FlatList,
@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import styled from 'styled-components/native';
-import {Colors} from '../../constants/Colors';
+import {Colors} from '../../../constants/Colors';
 
 export const TeamLogoList = ({selectedLogo, setLogo}) => {
   const teamLogoList = [
@@ -82,31 +82,32 @@ export const TeamLogoList = ({selectedLogo, setLogo}) => {
           </View>
         </TouchableWithoutFeedback>
       )}
-      keyExtractor={item => item._id}
+      keyExtractor={item => `${item._id}`}
       ItemSeparatorComponent={() => <Separator />}
       horizontal
     />
   );
 };
 
-export const SelectLogo = ({color, badgeId}) => {
+export const SelectLogo = ({color, badgeId, width}) => {
+  const setWidth = width || moderateScale(150);
   switch (parseInt(badgeId)) {
     case 1:
-      return <Wolf fill={color} />;
+      return <Wolf fill={color} width={setWidth} height={setWidth} />;
     case 2:
-      return <Fish fill={color} />;
+      return <Fish fill={color} width={setWidth} height={setWidth} />;
     case 3:
-      return <Cat fill={color} />;
+      return <Cat fill={color} width={setWidth} height={setWidth} />;
     case 4:
-      return <Seahorse fill={color} />;
+      return <Seahorse fill={color} width={setWidth} height={setWidth} />;
     case 5:
-      return <Pig fill={color} />;
+      return <Pig fill={color} width={setWidth} height={setWidth} />;
     case 6:
-      return <Bear fill={color} />;
+      return <Bear fill={color} width={setWidth} height={setWidth} />;
     case 7:
-      return <Deer fill={color} />;
+      return <Deer fill={color} width={setWidth} height={setWidth} />;
     case 8:
-      return <Dino fill={color} />;
+      return <Dino fill={color} width={setWidth} height={setWidth} />;
     // case 9:
     //   return <Shield9 fill={color} />;
     // case 10:

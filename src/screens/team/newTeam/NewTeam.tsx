@@ -9,16 +9,17 @@ import {
   Dimensions,
   Keyboard,
 } from 'react-native';
-import {Screen} from '../../components/Screen';
+import {Screen} from '../../../components/Screen';
 import styled from 'styled-components/native';
-import {Colors} from '../../constants/Colors';
+import {Colors} from '../../../constants/Colors';
 import {moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-ionicons';
 import {TeamBadgeList, SelectBadge} from './TeamBadgeList';
 import {TeamLogoList, SelectLogo} from './TeamLogoList';
 import {ColorsPick} from './ColorsPick';
-import Lottie from 'lottie-react-native';
-import animation from '../../assets/img/animations/success.json';
+import {MainButton} from '../../../components/MainButton';
+import {SecondaryButton} from '../../../components/SecondaryButton';
+import {ConclusionStep} from './ConclusionStep';
 const status = {ERROR: 'ERROR', WARNING: 'WARNNING', SUCCESS: 'SUCCESS'};
 
 export function CreateTeam({navigation}) {
@@ -42,19 +43,20 @@ export function CreateTeam({navigation}) {
   const scrollRef = useRef(null);
   const [step, setStep] = useState(0);
   navigation.setOptions({
-    title: teamName,
-    headerStyle: {
-      backgroundColor: Colors.primary.main,
-    },
-    headerTintColor: Colors.especial.main,
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+    // title: teamName,
+    // headerStyle: {
+    //   backgroundColor: Colors.primary.main,
+    // },
+    // headerTintColor: Colors.secondary.main,
+    // headerTitleStyle: {
+    //   fontWeight: 'bold',
+    // },
+    headerShown: false,
   });
 
   const validateTeamName = () => {
     if (teamName.length > 3 && teamName != defaultName) {
-      setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+      setButtonStatus({text: 'Próximo passo', status: status.SUCCESS});
     }
     return teamName.length > 3 && teamName != defaultName;
   };
@@ -71,11 +73,26 @@ export function CreateTeam({navigation}) {
         return !!selectedLogo._id;
       case 4:
         return !!selectedLogo.color;
+      case 5:
+        return (
+          selectedLogo._id &&
+          selectedLogo.color &&
+          selectedBadge.color &&
+          selectedBadge._id
+        );
       default:
         return false;
     }
   };
-
+  const backToStart = () => {
+    setStep(0);
+    scrollRef.current.scrollTo({
+      x: 0,
+      y: 0,
+      animated: true,
+    });
+    setButtonStatus({text: 'Próximo passo', status: status.SUCCESS});
+  };
   const nextStep = () => {
     if (step === 0) {
       if (validateTeamName()) {
@@ -111,6 +128,16 @@ export function CreateTeam({navigation}) {
         setStep(step + 1);
       }
     }
+    if (step === 5) {
+      if (
+        selectedLogo._id &&
+        selectedLogo.color &&
+        selectedBadge._id &&
+        selectedBadge.color
+      ) {
+        setStep(step + 1);
+      }
+    }
     if (validateTeam()) {
       scrollRef.current.scrollTo({
         x: 0,
@@ -143,7 +170,10 @@ export function CreateTeam({navigation}) {
             <TeamBadgeList
               setBadge={badge => {
                 setBadge(badge);
-                setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+                setButtonStatus({
+                  text: 'Próximo passo',
+                  status: status.SUCCESS,
+                });
               }}
               selectedBadge={selectedBadge}
             />
@@ -162,7 +192,10 @@ export function CreateTeam({navigation}) {
                 selectedColor={selectedBadge.color}
                 setColor={color => {
                   setBadgeColor(color);
-                  setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+                  setButtonStatus({
+                    text: 'Próximo passo',
+                    status: status.SUCCESS,
+                  });
                 }}
               />
             </View>
@@ -174,7 +207,10 @@ export function CreateTeam({navigation}) {
               selectedLogo={selectedLogo}
               setLogo={logo => {
                 setLogo(logo);
-                setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+                setButtonStatus({
+                  text: 'Próximo passo',
+                  status: status.SUCCESS,
+                });
               }}
             />
           </View>
@@ -192,7 +228,10 @@ export function CreateTeam({navigation}) {
                 selectedColor={selectedLogo.color}
                 setColor={color => {
                   setLogoColor(color);
-                  setButtonStatus({text: 'PRONTO', status: status.SUCCESS});
+                  setButtonStatus({
+                    text: 'Próximo passo',
+                    status: status.SUCCESS,
+                  });
                 }}
               />
             </View>
@@ -214,47 +253,28 @@ export function CreateTeam({navigation}) {
             </View>
           </View>
         </View>
+        <ConclusionStep
+          selectedBadge={selectedBadge}
+          selectedLogo={selectedLogo}
+          defaultColor={defaultColor}
+          teamName={teamName}
+        />
       </ScrollView>
-      <ButtonStyled onPress={() => nextStep()} status={buttonStatus.status}>
-        <View style={styles.buttonContainer}>
-          {buttonStatus.status === status.SUCCESS ? (
-            step === 5 ? (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 150,
-                  height: 150,
-                }}>
-                <Lottie
-                  resizeMode="contain"
-                  source={animation}
-                  autoPlay
-                  loop //={false}
-                />
-              </View>
-            ) : (
-              <Icon name="arrow-down" size={40} color={Colors.especial.main} />
-            )
-          ) : buttonStatus.status === status.ERROR ? (
-            <Icon name="close" size={40} color={Colors.text.error} />
-          ) : (
-            <Icon name="warning" size={40} color={Colors.secondary.main} />
-          )}
-          <View>
-            <Text
-              style={
-                buttonStatus.status === status.SUCCESS
-                  ? styles.buttonText
-                  : buttonStatus.status === status.ERROR
-                  ? styles.buttonTextError
-                  : styles.buttonTextWarning
-              }>
-              {buttonStatus.text}
-            </Text>
-          </View>
+      {buttonStatus.status === status.SUCCESS && step < 5 && (
+        <SecondaryButton onPress={() => nextStep()} title={buttonStatus.text}>
+          <Icon name="arrow-down" style={styles.iconNext} />
+        </SecondaryButton>
+      )}
+      {step === 5 && (
+        <View style={styles.buttonsConclusion}>
+          <MainButton onPress={() => nextStep()} title="Finalizar">
+            <Icon name="checkmark" style={styles.iconDone} />
+          </MainButton>
+          <MainButton onPress={() => backToStart()} outLine title="Refazer">
+            <Icon name="close" style={styles.iconRework} />
+          </MainButton>
         </View>
-      </ButtonStyled>
+      )}
     </Screen>
   );
 }
@@ -267,11 +287,8 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width,
     flexDirection: 'column',
-    // justifyContent: 'center',
     paddingTop: 150,
-
     alignItems: 'center',
-    // backgroundColor: '#0f0',
   },
   inputContainer: {
     justifyContent: 'center',
@@ -324,6 +341,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  teamLogoContainerDone: {
+    height: moderateScale(50),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   teamLogoView: {
     width: Dimensions.get('window').width - 100,
     height: moderateScale(250),
@@ -339,6 +361,22 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  iconNext: {
+    marginHorizontal: 10,
+    color: Colors.especial.main,
+  },
+  iconDone: {
+    marginHorizontal: 10,
+    color: Colors.primary.main,
+  },
+  iconRework: {
+    marginHorizontal: 10,
+    color: Colors.secondary.main,
+  },
+  buttonsConclusion: {
+    width: '100%',
+    height: 150,
   },
 });
 

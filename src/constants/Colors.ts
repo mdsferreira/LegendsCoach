@@ -1,7 +1,7 @@
 export const Colors = {
   primary: {
-    main: '#232123',
-    light: '#4b484b',
+    main: '#111111',
+    light: '#232123',
     dark: '#000000',
     contrastText: '#c9aa71',
   },
@@ -12,7 +12,7 @@ export const Colors = {
     contrastText: '#232123',
   },
   especial: {
-    main: '#84ffff',
+    main: '#80DEEA',
   },
   background: {
     main: '#232123',
@@ -23,6 +23,7 @@ export const Colors = {
   text: {
     main: '#ffffff',
     title: '#fddca0',
+    subTitle: '#959595',
     body: '#cccccc',
     error: '#ff1744',
   },

@@ -11,7 +11,7 @@ import {useSelector} from 'react-redux';
 import {SearchScreen} from '../screens/search/SearchScreen';
 import Icon from 'react-native-ionicons';
 import {Colors} from '../constants/Colors';
-import {CreateTeam} from '../screens/team/NewTeam';
+import {CreateTeam} from '../screens/team/newTeam/NewTeam';
 
 const LogoutStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,14 +55,14 @@ export default function Navigator() {
               },
             })}
             tabBarOptions={{
-              activeTintColor: Colors.secondary.light,
-              inactiveTintColor: Colors.secondary.main,
+              activeTintColor: Colors.secondary.main,
+              inactiveTintColor: '#767676',
               labelStyle: {
                 fontSize: 12,
               },
               style: {
-                backgroundColor: Colors.primary.main,
-                borderTopColor: '#707070',
+                backgroundColor: '#161616',
+                borderTopColor: '#161616',
                 borderTopWidth: 1,
                 padding: 5,
               },

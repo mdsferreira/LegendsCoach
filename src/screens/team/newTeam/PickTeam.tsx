@@ -7,14 +7,14 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import {Screen} from '../../components/Screen';
-import {Images} from '../../constants/Images';
-import {Card} from '../../components/Card';
-import {Colors} from '../../constants/Colors';
+import {Screen} from '../../../components/Screen';
+import {Images} from '../../../constants/Images';
+import {Card} from '../../../components/Card';
+import {Colors} from '../../../constants/Colors';
 import styled from 'styled-components/native';
-import {LaneIconButton} from '../../components/LaneIconButton';
+import {LaneIconButton} from '../../../components/LaneIconButton';
 import Icon from 'react-native-ionicons';
-import {PlayerList} from './PlayerList';
+import {PlayerList} from '../PlayerList';
 import {moderateScale} from 'react-native-size-matters';
 
 export const PickTeam = () => {
