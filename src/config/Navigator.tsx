@@ -2,7 +2,6 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {AuthScreen} from '../screens/Auth/AuthScreen';
 import HomeScreen from '../screens/home/HomeScreen';
 import {ProfileScreen} from '../screens/profile/ProfileScreen';
 import {TeamScreen} from '../screens/team/TeamScreen';
@@ -12,6 +11,7 @@ import {SearchScreen} from '../screens/search/SearchScreen';
 import Icon from 'react-native-ionicons';
 import {Colors} from '../constants/Colors';
 import {CreateTeam} from '../screens/team/newTeam/NewTeam';
+import {AuthScreen} from '../screens/Auth/AuthScreen';
 
 const LogoutStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,6 +33,11 @@ export default function Navigator() {
       {!user ? (
         <NavigationContainer>
           <LogoutStack.Navigator>
+            {/* <LogoutStack.Screen
+              name="Login"
+              component={AuthScreen}
+              options={{headerShown: false}}
+            /> */}
             <LogoutStack.Screen
               name="Login"
               component={AuthScreen}

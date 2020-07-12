@@ -17,10 +17,8 @@ export const Logo = () => {
         <Image style={styles.logo} source={Images.logo} />
       </View>
       <View style={styles.logoTextView}>
-        <Text style={styles.initialLetter}>L</Text>
-        <Text style={styles.logoText}>egends </Text>
-        <Text style={styles.initialLetter}>C</Text>
-        <Text style={styles.logoText}>oach</Text>
+        <Text style={styles.firstText}>LEGENDS</Text>
+        <Text style={styles.lastText}>COACH</Text>
       </View>
     </View>
   );
@@ -34,34 +32,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoTextView: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginLeft: -20,
+    alignItems: 'flex-start',
+    height: 100,
   },
-  initialLetter: {
-    fontSize: moderateScale(25),
+  firstText: {
+    fontSize: moderateScale(40),
     fontWeight: 'bold',
     color: Colors.primary.contrastText,
-    ...Platform.select({
-      ios: {fontFamily: 'Arial'},
-      android: {fontFamily: 'Roboto'},
-    }),
+    fontFamily: 'Roboto',
+  },
+  lastText: {
+    fontSize: moderateScale(24),
+    color: Colors.especial.main,
+    fontWeight: 'bold',
+    fontFamily: 'Roboto',
+    marginTop: -10,
   },
   logoContainer: {
     // margin: moderateScale(30),
   },
   logo: {
-    width: moderateScale(70),
-    height: moderateScale(70),
+    width: moderateScale(120),
+    height: moderateScale(120),
     // resizeMode: 'stretch',
-  },
-  logoText: {
-    fontSize: moderateScale(30),
-    color: Colors.primary.contrastText,
-    ...Platform.select({
-      ios: {fontFamily: 'Arial'},
-      android: {fontFamily: 'Roboto'},
-    }),
   },
 });

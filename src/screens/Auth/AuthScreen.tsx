@@ -1,33 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 // import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Text, View, ImageBackground, ActivityIndicator} from 'react-native';
+import {Text, View, ImageBackground, Dimensions, Animated} from 'react-native';
 import styled from 'styled-components';
-import {Input} from '../../components/Input';
-import {Button, ButtonText} from '../../components/Button';
 import {Colors} from '../../constants/Colors';
 import {Images} from '../../constants/Images';
 import {styles} from './style/Auth.css';
-import {Formik} from 'formik';
 import {Logo} from '../../components/Logo';
 import {Creators as userActions} from '../../store/ducks/user';
 import {useDispatch, useSelector} from 'react-redux';
-import * as Yup from 'yup';
+import {MainButton} from '../../components/MainButton';
+import {AuthModal} from './AuthModal';
 
-const initialValues = {email: '', password: ''};
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-  password: Yup.string()
-    .min(6, 'Too Short!')
-    .max(20, 'Too Long!')
-    .required('Required'),
-});
+const {height} = Dimensions.get('window');
 
 export const AuthScreen = ({navigation}) => {
   const [errorMsg, setErrorMesage] = useState('');
+  const [show, setModalOpen] = useState(false);
+  const modalHeight = useRef(new Animated.Value(height)).current;
   const dispatch = useDispatch();
   const userState = useSelector(state => state.user);
   const {loading, user, error} = userState;
@@ -49,8 +39,37 @@ export const AuthScreen = ({navigation}) => {
     }
   }, [userState]);
 
+  const openModal = () => {
+    Animated.sequence([
+      Animated.spring(modalHeight, {
+        toValue: 0,
+        bounciness: 5,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const closeModal = () => {
+    Animated.sequence([
+      Animated.timing(modalHeight, {
+        toValue: height,
+        duration: 350,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  useEffect(() => {
+    if (show) {
+      openModal();
+    } else {
+      closeModal();
+    }
+  }, [show]);
+
   useEffect(() => {
     (async () => {
+      AsyncStorage.clear();
       const email = await AsyncStorage.getItem('email');
       const password = await AsyncStorage.getItem('password');
       if (email && password) {
@@ -58,7 +77,6 @@ export const AuthScreen = ({navigation}) => {
       }
     })();
   }, []);
-
   return (
     <ImageBackground
       source={Images.backgroundLogin}
@@ -67,82 +85,39 @@ export const AuthScreen = ({navigation}) => {
         <View style={styles.title}>
           <Logo />
         </View>
-        <LoginBox>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={LoginSchema}
-            onSubmit={values => {
-              onSubmit(values);
-            }}>
-            {props => {
-              const {
-                values,
-                isSubmitting,
-                handleChange,
-                handleSubmit,
-                errors,
-                touched,
-                setFieldTouched,
-                submitCount,
-              } = props;
-              return (
-                <>
-                  <Text style={styles.loginBoxTitle}>Iniciar sessão</Text>
-                  <Input
-                    name="email"
-                    placeholder={'Digite o seu email de acesso'}
-                    value={values.email}
-                    onChangeText={handleChange('email')}
-                    hasError={touched.email && errors.email}
-                    setTouched={() => setFieldTouched('email')}
-                  />
-                  <Input
-                    name="password"
-                    placeholder="Digite a sua senha"
-                    value={values.password}
-                    onChangeText={handleChange('password')}
-                    secureTextEntry
-                    hasError={touched.password && errors.password}
-                    setTouched={() => setFieldTouched('password')}
-                  />
-                  {errorMsg ? (
-                    <Text style={styles.errorText}>{errorMsg}</Text>
-                  ) : null}
-                  <Button>
-                    {loading ? (
-                      <ActivityIndicator />
-                    ) : (
-                      <ButtonText onPress={handleSubmit}>Entrar</ButtonText>
-                    )}
-                  </Button>
-                </>
-              );
-            }}
-          </Formik>
-        </LoginBox>
         <View style={styles.newAcountText}>
-          <Text style={[styles.titleText, {fontSize: 10}]}>
-            Não possui conta? Crie seu time de Lendas
-          </Text>
+          <Button onPress={() => setModalOpen(true)}>
+            <TitleButton>LOGIN</TitleButton>
+          </Button>
+          <View>
+            <Text style={[styles.titleText, {fontSize: 10}]}>
+              Não possui conta? Crie seu time de Lendas
+            </Text>
+          </View>
         </View>
+        <AuthModal
+          onSubmit={onSubmit}
+          errorMsg={errorMsg}
+          loading={loading}
+          modalHeight={modalHeight}
+          closeModal={() => setModalOpen(false)}
+        />
       </View>
     </ImageBackground>
   );
 };
 
-const LoginBox = styled.View`
-  border-radius: 3px;
-  flex-direction: column;
-  box-shadow: 1px 1px #ccc;
-  background-color: ${Colors.primary.main};
-  padding: 10px;
+const Button = styled(MainButton)`
+  height: 70;
+  border-radius: 35;
+  width: '${Dimensions.get('window').width}';
 `;
 
-const Title = styled.Text`
-  font-weight: 700;
-  font-size: 30px;
-  color: ${Colors.primary.contrastText};
+const TitleButton = styled.Text`
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Roboto';
+  color: ${Colors.secondary.contrastText};
   align-self: center;
   /* text-transform: uppercase; */
-  font-family: 'Times New Roman';
 `;

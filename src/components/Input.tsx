@@ -14,6 +14,7 @@ export const Input = props => {
         props.setTouched();
       }}
       onBlur={() => setFocus(false)}
+      placeholderTextColor={Colors.secondary.main}
     />
   );
 };
@@ -22,7 +23,9 @@ const InputStyled = styled(TextInput)`
   border: ${props =>
     props.isFocus ? `2px solid ${Colors.primary.main}` : 'none'};
   background-color: ${props =>
-    props.isFocus ? Colors.background.component : Colors.background.body};
-  padding: 12px;
+    props.isFocus ? '#312e31' : Colors.primary.light};
+  padding: 10px 20px;
   margin: 10px;
+  border-radius: 27px;
+  color: ${Colors.secondary.main};
 `;
