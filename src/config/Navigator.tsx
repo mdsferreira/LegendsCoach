@@ -73,7 +73,6 @@ export default function Navigator() {
               },
             }}>
             <Tab.Screen name="Team" component={TeamStackScreen} />
-
             <Tab.Screen name="Search" component={SearchScreen} />
             <Tab.Screen name="Home" component={HomeScreen} />
           </Tab.Navigator>

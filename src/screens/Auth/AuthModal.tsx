@@ -96,7 +96,7 @@ export const AuthModal = ({
                     onChangeText={handleChange('password')}
                     secureTextEntry
                     hasError={touched.password && errors.password}
-                    setTouched={() => setFieldTouched('password')}
+                    // setTouched={() => setFieldTouched('password')}
                   />
                 </View>
                 {errorMsg ? (

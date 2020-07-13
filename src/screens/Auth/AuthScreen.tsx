@@ -69,7 +69,7 @@ export const AuthScreen = ({navigation}) => {
 
   useEffect(() => {
     (async () => {
-      AsyncStorage.clear();
+      // AsyncStorage.clear();
       const email = await AsyncStorage.getItem('email');
       const password = await AsyncStorage.getItem('password');
       if (email && password) {

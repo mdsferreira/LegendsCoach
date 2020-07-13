@@ -10,6 +10,7 @@ export const Input = props => {
       isFocus={isFocus}
       {...props}
       onFocus={() => {
+        console.log('focus');
         setFocus(true);
         props.setTouched();
       }}
@@ -19,7 +20,7 @@ export const Input = props => {
   );
 };
 
-const InputStyled = styled(TextInput)`
+export const InputStyled = styled(TextInput)`
   border: ${props =>
     props.isFocus ? `2px solid ${Colors.primary.main}` : 'none'};
   background-color: ${props =>

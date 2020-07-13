@@ -29,7 +29,7 @@ export const Button = styled(View)`
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* margin: 5px 10px; */
+  margin-bottom: 10px;
   height: 50px;
   border-radius: 27;
 `;

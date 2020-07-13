@@ -16,4 +16,7 @@ export const getURL = (baseUrl, params) => {
 export const urls = {
   LOGIN: `${BASE_URL}/user/login/`,
   LEAGUES: `${BASE_URL}/league/list`,
+  TEAMS: `${BASE_URL}/team/list`,
+  NEW_TEAM: `${BASE_URL}/team/create`,
+  VALIDATE_TEAM: `${BASE_URL}/team/validate`,
 };

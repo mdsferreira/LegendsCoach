@@ -24,9 +24,10 @@ export const TeamScreen = ({navigation}) => {
   navigation.setOptions({
     headerShown: false,
   });
+  console.log(team);
   return (
     <Screen color={Colors.background.main}>
-      {!team.id && (
+      {(!team || !team._id) && (
         <View style={styles.createTeamContainer}>
           <View style={styles.animatedHeader}>
             <Lottie
@@ -63,8 +64,9 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    paddingHorizontal: 20,
   },
   animatedHeader: {
     width: '100%',

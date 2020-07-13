@@ -24,11 +24,12 @@ export const ConclusionStep = ({
   selectedLogo,
   teamName,
   defaultColor,
+  onPressButton,
 }) => {
   return (
     <View style={styles.container}>
       <View style={styles.animatedDone}>
-        <Lottie resizeMode="contain" source={animation} autoPlay loop={false} />
+        <Lottie resizeMode="contain" source={animation} autoPlay loop />
       </View>
       <View>
         <Text style={styles.titleText}>Excelente!</Text>
@@ -37,7 +38,7 @@ export const ConclusionStep = ({
         </Text>
       </View>
       <View style={styles.teamLogoContainer}>
-        <Lottie resizeMode="contain" source={animationTeam} autoPlay loop />
+        {/* <Lottie resizeMode="contain" source={animationTeam} autoPlay loop /> */}
         <View style={styles.teamLogoView}>
           <SelectBadge
             color={selectedBadge.color || defaultColor}
@@ -57,7 +58,7 @@ export const ConclusionStep = ({
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <SecondaryButton title="Ok" />
+        <SecondaryButton title="Ok" onPress={onPressButton} />
       </View>
     </View>
   );
@@ -110,11 +111,11 @@ const styles = StyleSheet.create({
     // backgroundColor: Colors.background.component,
   },
   teamLogoView: {
-    width: 100,
+    width: 80,
     height: moderateScale(120),
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.primary.light,
+    // backgroundColor: Colors.primary.light,
     borderRadius: 20,
   },
   teamNameText: {
@@ -124,6 +125,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 30,
   },
   buttonContainer: {
     width: '100%',

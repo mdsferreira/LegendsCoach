@@ -20,6 +20,9 @@ import {ColorsPick} from './ColorsPick';
 import {MainButton} from '../../../components/MainButton';
 import {SecondaryButton} from '../../../components/SecondaryButton';
 import {ConclusionStep} from './ConclusionStep';
+import {Actions as teamActions} from '../../../store/ducks/team';
+import {useDispatch, useSelector} from 'react-redux';
+
 const status = {ERROR: 'ERROR', WARNING: 'WARNNING', SUCCESS: 'SUCCESS'};
 
 export function CreateTeam({navigation}) {
@@ -29,6 +32,8 @@ export function CreateTeam({navigation}) {
   const [selectedBadge, setBadge] = useState({_id: 0, color: defaultColor});
   const [selectedLogo, setLogo] = useState({_id: 0, color: defaultColor});
   //status warnning , error or success
+  const dispatch = useDispatch();
+
   const [buttonStatus, setButtonStatus] = useState({
     text: defaultName,
     status: status.WARNING,
@@ -42,23 +47,40 @@ export function CreateTeam({navigation}) {
   };
   const scrollRef = useRef(null);
   const [step, setStep] = useState(0);
+
   navigation.setOptions({
-    // title: teamName,
-    // headerStyle: {
-    //   backgroundColor: Colors.primary.main,
-    // },
-    // headerTintColor: Colors.secondary.main,
-    // headerTitleStyle: {
-    //   fontWeight: 'bold',
-    // },
-    headerShown: false,
+    title: teamName !== defaultName ? teamName : '',
+    headerStyle: {
+      backgroundColor: Colors.primary.main,
+    },
+    headerTintColor: Colors.secondary.main,
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      justifyContent: 'center',
+    },
+    headerShown: step !== 6,
   });
 
-  const validateTeamName = () => {
+  const validateTeamNameSize = () => {
     if (teamName.length > 3 && teamName != defaultName) {
       setButtonStatus({text: 'Próximo passo', status: status.SUCCESS});
     }
     return teamName.length > 3 && teamName != defaultName;
+  };
+
+  const validateTeamNameUniq = async () => {
+    const response = await teamActions.validateTeamName(teamName);
+    if (response == true) return !!response;
+    return {error: 'Nome já existe'};
+  };
+
+  const createTeam = () => {
+    const team = {
+      name: teamName,
+      badge: selectedBadge,
+      logo: selectedLogo,
+    };
+    return teamActions.createTeam(dispatch, team);
   };
 
   const validateTeam = () => {
@@ -93,13 +115,21 @@ export function CreateTeam({navigation}) {
     });
     setButtonStatus({text: 'Próximo passo', status: status.SUCCESS});
   };
-  const nextStep = () => {
+  const nextStep = async () => {
     if (step === 0) {
-      if (validateTeamName()) {
-        //#TODO check if the name is unic
-        setStep(step + 1);
-        Keyboard.dismiss();
-        setButtonStatus({text: 'Selecione uma Brazão', status: status.WARNING});
+      if (validateTeamNameSize()) {
+        const isValid = await validateTeamNameUniq();
+        console.log(isValid);
+        if (isValid && !isValid.error) {
+          setStep(step + 1);
+          Keyboard.dismiss();
+          setButtonStatus({
+            text: 'Selecione uma Brazão',
+            status: status.WARNING,
+          });
+        } else {
+          setButtonStatus({text: isValid.error, status: status.ERROR});
+        }
       } else {
         setButtonStatus({text: 'Tamanho mínimo 3', status: status.ERROR});
       }
@@ -138,6 +168,9 @@ export function CreateTeam({navigation}) {
         setStep(step + 1);
       }
     }
+    if (step === 6) {
+      createTeam();
+    }
     if (validateTeam()) {
       scrollRef.current.scrollTo({
         x: 0,
@@ -158,7 +191,7 @@ export function CreateTeam({navigation}) {
             <Input
               onChangeText={text => {
                 onChangeText(text);
-                validateTeamName();
+                validateTeamNameSize();
               }}
               value={teamName}
               onFocus={() => onChangeText('')}
@@ -258,6 +291,7 @@ export function CreateTeam({navigation}) {
           selectedLogo={selectedLogo}
           defaultColor={defaultColor}
           teamName={teamName}
+          onPressButton={() => navigation.push('Team')}
         />
       </ScrollView>
       {buttonStatus.status === status.SUCCESS && step < 5 && (
@@ -390,7 +424,7 @@ const Input = styled(TextInput)`
   margin: 20px;
   border-radius: 5px;
   border-bottom-width: 1px;
-  border-bottom-color: ${Colors.especial.main};
+  border-bottom-color: ${Colors.secondary.main};
   color: ${Colors.text.main};
 `;
 
